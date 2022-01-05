@@ -110,7 +110,7 @@ You can see it directly at: <a href="http://127.0.0.1:8000/openapi.json" class="
 
 It will show a JSON starting with something like:
 
-```JSON
+.. code:: JSON
 {
     "openapi": "3.0.2",
     "info": {
@@ -128,8 +128,8 @@ It will show a JSON starting with something like:
 
 
 
-...
-```
+
+
 
 #### What is OpenAPI for
 
