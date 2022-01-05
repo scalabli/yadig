@@ -317,7 +317,7 @@ For discussions about the usage, development, and future of quo, please join our
 
 If you have any suggestions, bug reports, or annoyances please report them
 to our issue tracker at 
-[Bug tracker](https://github.com/secretum-inc/quo/issues/)
+[Bug tracker](https://github.com/secretum-inc/citus/issues/)
 
 
 ## License📑
