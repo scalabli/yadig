@@ -21,6 +21,19 @@ Quo requires Python `3.6.1` or later.
 
 
 ## Features
+The key features are:
+
+- [x] **Fast**: Very high performance, on par with **NodeJS** and **Go** (thanks to Starlette and Pydantic). [One of the fastest Python frameworks available](#performance).
+
+- [x] **Fast to code**: Increase the speed to develop features by about 200% to 300%. *
+- [x] **Fewer bugs**: Reduce about 40% of human (developer) induced errors. *
+- [x] **Intuitive**: Great editor support. <abbr title="also known as auto-complete, autocompletion, IntelliSense">Completion</abbr> everywhere. Less time debugging.
+- [x] **Easy**: Designed to be easy to use and learn. Less time reading docs.
+- [x] **Short**: Minimize code duplication. Multiple features from each parameter declaration. Fewer bugs.
+- [x] **Robust**: Get production-ready code. With automatic interactive documentation.
+- [x] **Standards-based**: Based on (and fully compatible with) the open standards for APIs: <a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank">OpenAPI</a> (previously known as Swagger) and <a href="https://json-schema.org/" class="external-link" target="_blank">JSON Schema</a>.
+
+<small>* estimation based on tests on an internal development team, building production applications.</small>
 - [x] Support for Ansi, RGB and HTML color models
 - [x] Support for tabular presentation of data
 - [x] Interactive progressbars
@@ -33,10 +46,10 @@ Quo requires Python `3.6.1` or later.
 
 ## Getting Started
 ### Installation
-You can install quo via the Python Package Index (PyPI)
+You can install citus via the Python Package Index (PyPI)
 
 ```
-pip install -U quo
+pip install -U citus
 ```
 
 
