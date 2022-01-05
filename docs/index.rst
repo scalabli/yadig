@@ -17,7 +17,7 @@ Citus Documentation
    :caption: Contents:
 
    getting_started.rst
-   commands.rst
+   body.rst
    apps.rst
    args.rst
    confirm.rst.
