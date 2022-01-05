@@ -1,4 +1,5 @@
-# Concurrency and async / await
+Concurrency and async / await
+===============================
 
 Details about the `async def` syntax for *path operation functions* and some background about asynchronous code, concurrency, and parallelism.
 
@@ -8,18 +9,19 @@ Details about the `async def` syntax for *path operation functions* and some bac
 
 If you are using third party libraries that tell you to call them with `await`, like:
 
-```Python
-results = await some_library()
-```
+.. code:: python
+
+  results = await some_library()
+
 
 Then, declare your *path operation functions* with `async def` like:
 
-```Python hl_lines="2"
-@app.get('/')
-async def read_results():
-    results = await some_library()
-    return results
-```
+.. code:: python
+
+    @app.get('/')
+    async def read_results():
+        results = await some_library()
+        return results
 
 !!! note
     You can only use `await` inside of functions created with `async def`.
@@ -28,12 +30,12 @@ async def read_results():
 
 If you are using a third party library that communicates with something (a database, an API, the file system, etc) and doesn't have support for using `await`, (this is currently the case for most database libraries), then declare your *path operation functions* as normally, with just `def`, like:
 
-```Python hl_lines="2"
-@app.get('/')
-def results():
-    results = some_library()
-    return results
-```
+.. code:: python
+
+   @app.get('/')
+   def results():
+       results = some_library()
+       return results
 
 ---
 
@@ -307,12 +309,12 @@ burgers = get_burgers(2)
 
 So, if you are using a library that tells you that you can call it with `await`, you need to create the *path operation functions* that uses it with `async def`, like in:
 
-```Python hl_lines="2-3"
-@app.get('/burgers')
-async def read_burgers():
-    burgers = await get_burgers(2)
-    return burgers
-```
+.. code:: python
+
+   @app.init('/burgers')
+   async def read_burgers():
+       burgers = await get_burgers(2)
+       return burgers
 
 ### More technical details
 
