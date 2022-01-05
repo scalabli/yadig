@@ -1,17 +1,20 @@
 # Features
 
-## FastAPI features
+Citus features
+===============
 
-**FastAPI** gives you the following:
+`Citus` gives you the following:
 
-### Based on open standards
+ Based on open standards
+-------------------------
 
 * <a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank"><strong>OpenAPI</strong></a> for API creation, including declarations of <abbr title="also known as: endpoints, routes">path</abbr> <abbr title="also known as HTTP methods, as POST, GET, PUT, DELETE">operations</abbr>, parameters, body requests, security, etc.
 * Automatic data model documentation with <a href="https://json-schema.org/" class="external-link" target="_blank"><strong>JSON Schema</strong></a> (as OpenAPI itself is based on JSON Schema).
 * Designed around these standards, after a meticulous study. Instead of an afterthought layer on top.
 * This also allows using automatic **client code generation** in many languages.
 
-### Automatic docs
+Automatic docs
+--------------------
 
 Interactive API documentation and exploration web user interfaces. As the framework is based on OpenAPI, there are multiple options, 2 included by default.
 
@@ -31,10 +34,11 @@ If you need a 2 minute refresher of how to use Python types (even if you don't u
 
 You write standard Python with types:
 
-```Python
-from datetime import date
+.. code:: python
 
-from pydantic import BaseModel
+  from datetime import date
+
+  from pydantic import BaseModel
 
 # Declare a variable as a str
 # and get editor support inside the function
@@ -68,7 +72,8 @@ my_second_user: User = User(**second_user_data)
 
     Pass the keys and values of the `second_user_data` dict directly as key-value arguments, equivalent to: `User(id=4, name="Mary", joined="2018-11-30")`
 
-### Editor support
+Editor support
+-------------------
 
 All the framework was designed to be easy and intuitive to use, all the decisions were tested on multiple editors even before starting development, to ensure the best development experience.
 
