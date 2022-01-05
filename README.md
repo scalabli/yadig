@@ -98,6 +98,67 @@ async def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 ```
 
+
+**Note**:
+
+If you don't know, check the _"In a hurry?"_ section about <a href="https://fastapi.tiangolo.com/async/#in-a-hurry" target="_blank">`async` and `await` in the docs</a>.
+
+</details>
+
+### Run it
+
+Run the server with:
+
+<div class="termy">
+
+```console
+$ citus main:app --reload
+
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [28720]
+INFO:     Started server process [28722]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+</div>
+
+<details markdown="1">
+<summary>About the command <code>uvicorn main:app --reload</code>...</summary>
+
+The command `citus main:app` refers to:
+
+* `main`: the file `main.py` (the Python "module").
+* `app`: the object created inside of `main.py` with the line `app = citus.App()`.
+* `--reload`: make the server restart after code changes. Only do this for development.
+
+</details>
+
+### Check it
+
+Open your browser at <a href="http://127.0.0.1:8000/items/33?q=checkuser" class="external-link" target="_blank">http://127.0.0.1:8000/items/33?q=checkuser</a>.
+
+You will see the JSON response as:
+
+```JSON
+{"item_id": 33, "q": "checkuser"}
+```
+
+You already created an API that:
+
+* Receives HTTP requests in the _paths_ `/` and `/items/{item_id}`.
+* Both _paths_ take `GET` <em>operations</em> (also known as HTTP _methods_).
+* The _path_ `/items/{item_id}` has a _path parameter_ `item_id` that should be an `int`.
+* The _path_ `/items/{item_id}` has an optional `str` _query parameter_ `q`.
+
+### Interactive API docs
+
+Now go to <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+
+You will see the automatic interactive API documentation (provided by <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a>):
+
+![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
+
 ### quo.echo
 **Example 1**
 ```python
