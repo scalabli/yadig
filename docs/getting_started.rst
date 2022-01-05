@@ -34,7 +34,7 @@ Run the live server:
 
 .. note::
 
-    The command `uvicorn main:app` refers to:
+    The command `citus main:app` refers to:
 
     * `main`: the file `main.py` (the Python "module").
     * `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
@@ -76,11 +76,13 @@ You will see the alternative automatic documentation (provided by <a href="https
 
 ![ReDoc](https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png)
 
-### OpenAPI
+OpenAPI
+--------
 
 **FastAPI** generates a "schema" with all your API using the **OpenAPI** standard for defining APIs.
 
-#### "Schema"
+Schema
+-------
 
 A "schema" is a definition or description of something. Not the code that implements it, but just an abstract description.
 
