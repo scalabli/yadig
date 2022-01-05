@@ -24,7 +24,7 @@ Citus Documentation
    printing_text.rst
    prompt.rst
    exceptions.rst
-   dialogs.rsr
+   handling_errors.rst
    terminal.rst
    style.rst
    markup.rst
