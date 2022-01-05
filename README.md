@@ -52,6 +52,51 @@ You can install citus via the Python Package Index (PyPI)
 pip install -U citus
 ```
 
+## Example
+
+### Create it
+
+* Create a file `main.py` with:
+
+```Python
+from typing import Optional
+
+import citus
+
+app = citus.App()
+
+
+@app.init("/")
+def read_root():
+    return "Hello World"
+
+
+@app.init("/items/{item_id}")
+def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+<details markdown="1">
+<summary>Or use <code>async def</code>...</summary>
+
+If your code uses `async` / `await`, use `async def`:
+
+```Python hl_lines="9  14"
+from typing import Optional
+import quo
+
+app = citus.App()
+
+
+@app.init("/")
+async def read_root():
+    return "Hello World"
+
+
+@app.init("/items/{item_id}")
+async def read_item(item_id: int, q: Optional[str] = None):
+    return {"item_id": item_id, "q": q}
+```
 
 ### quo.echo
 **Example 1**
