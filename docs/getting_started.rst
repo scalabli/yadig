@@ -1,4 +1,5 @@
-# First Steps
+First Steps
+===============
 
 The simplest Citus file could look like this:
 
@@ -31,7 +32,8 @@ Run the live server:
 
 </div>
 
-!!! note
+.. note::
+
     The command `uvicorn main:app` refers to:
 
     * `main`: the file `main.py` (the Python "module").
@@ -40,9 +42,9 @@ Run the live server:
 
 In the output, there's a line with something like:
 
-```hl_lines="4"
+.. code:: console
+
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-```
 
 That line shows the URL where your app is being served, in your local machine.
 
@@ -52,11 +54,12 @@ Open your browser at <a href="http://127.0.0.1:8000" class="external-link" targe
 
 You will see the JSON response as:
 
-```JSON
-{"message": "Hello World"}
-```
+.. code:: JSON
 
-### Interactive API docs
+{"message": "Hello World"}
+
+Interactive API docs
+---------------------
 
 Now go to <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
 
@@ -64,7 +67,8 @@ You will see the automatic interactive API documentation (provided by <a href="h
 
 ![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
 
-### Alternative API docs
+Alternative API docs
+----------------------
 
 And now, go to <a href="http://127.0.0.1:8000/redoc" class="external-link" target="_blank">http://127.0.0.1:8000/redoc</a>.
 
