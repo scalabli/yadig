@@ -9,7 +9,7 @@ setup(
         "quo",
         "asgiref>= 3.4.0",
         "h11>= 0.8",
-        "typing-extensions; env_marker_below_38env_marker_below_38",
+        "typing-extensions; env_marker_below_38",
         "python-dotenv>= 0.13",
         "PyYAML>= 5.1",
         "watchgod>= 0.6",
