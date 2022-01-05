@@ -4,7 +4,7 @@
 from setuptools import setup
 
 setup(
-    name="quo",
+    name="citus",
     install_requires=[
         "quo",
         "asgiref>= 3.4.0",
