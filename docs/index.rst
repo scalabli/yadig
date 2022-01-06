@@ -51,6 +51,8 @@ Citus Documentation
    protocol.rst
 
    changes.rst
+   request_forms.rst
+   static_files.rst
    reference.rst
    unicode-support.rst
    appendix.rst
