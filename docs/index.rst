@@ -17,6 +17,7 @@ Citus Documentation
    :caption: Contents:
 
    getting_started.rst
+   background_tasks.rst
    body.rst
    apps.rst
    args.rst
