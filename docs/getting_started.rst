@@ -1,5 +1,5 @@
-First Steps
-===============
+Getting Started
+================
 
 The simplest Citus file could look like this:
 
