@@ -1,7 +1,7 @@
 
 ..
 
-.. image:: https://raw.githubusercontent.com/secretum-inc/citus/main/docs/images/quo.png
+.. image:: https://raw.githubusercontent.com/secretum-inc/citus/main/docs/images/citus.png
 
 Citus Documentation
 ================================
@@ -18,7 +18,16 @@ Citus Documentation
 
    getting_started.rst
    background_tasks.rst
+   bigger-applications.rst
    body.rst
+   body-fields.rst
+   body-multiple-params.rst
+   body-nested-models.rst
+   body-updates.rst
+   cookie-params.rst
+   cors.rst
+   debugging.rst
+   encoders.rst
    apps.rst
    args.rst
    confirm.rst.
