@@ -1,4 +1,5 @@
-# Cookie Parameters
+Cookie Parameters
+==================
 
 You can define Cookie parameters the same way you define `Query` and `Path` parameters.
 
@@ -10,7 +11,8 @@ First import `Cookie`:
 {!../../../docs_src/cookie_params/tutorial001.py!}
 ```
 
-## Declare `Cookie` parameters
+Declare `Cookie` parameters
+----------------------------
 
 Then declare the cookie parameters using the same structure as with `Path` and `Query`.
 
