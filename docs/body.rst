@@ -1,5 +1,4 @@
-Request Body
-===============
+# Request Body
 
 When you need to send data from a client (let's say, a browser) to your API, you send it as a **request body**.
 

@@ -24,57 +24,63 @@ from citus.uvicorn.config import (
 from citus.uvicorn.server import Server, ServerState  # noqa: F401  # Used to be defined here.
 from citus.uvicorn.supervisors import ChangeReload, Multiprocess
 
-LEVEL_CHOICES = click.Choice(list(LOG_LEVELS.keys()))
-HTTP_CHOICES = click.Choice(list(HTTP_PROTOCOLS.keys()))
-WS_CHOICES = click.Choice(list(WS_PROTOCOLS.keys()))
-LIFESPAN_CHOICES = click.Choice(list(LIFESPAN.keys()))
-LOOP_CHOICES = click.Choice([key for key in LOOP_SETUPS.keys() if key != "none"])
-INTERFACE_CHOICES = click.Choice(INTERFACES)
+LEVEL_CHOICES = quo.types.Choice(list(LOG_LEVELS.keys()))
+HTTP_CHOICES = quo.types.Choice(list(HTTP_PROTOCOLS.keys()))
+WS_CHOICES = quo.types.Choice(list(WS_PROTOCOLS.keys()))
+LIFESPAN_CHOICES = quo.types.Choice(list(LIFESPAN.keys()))
+LOOP_CHOICES = quo.types.Choice([key for key in LOOP_SETUPS.keys() if key != "none"])
+INTERFACE_CHOICES = quo.types.Choice(INTERFACES)
 
 STARTUP_FAILURE = 3
 
 logger = logging.getLogger("citus.uvicorn.error")
 
 
-def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> None:
-    if not value or ctx.resilient_parsing:
+def print_version(clime: quo.core.Context, param: quo.core.Parameter, value: bool) -> None:
+    if not value or clime.resilient_parsing:
         return
-    click.echo(
-        "Running citus %s with %s %s on %s"
-        % (
-            citus.__version__,
-            platform.python_implementation(),
-            platform.python_version(),
-            platform.system(),
-        )
-    )
-    ctx.exit()
+    quo.inscirbe(
+            quo.text.HTML('<skyblue>Running citus {citus.__version__}</skyblue/>'))
 
+  #  quo.echo(
+     #   "Running citus %s with %s %s on %s"
+    #    % (
+         #   citus.__version__,
+        #    platform.python_implementation(),
+      #      platform.python_version(),
+      #      platform.system(),
+      #  )
+   # )
+    clime.exit()
 
-@click.command(context_settings={"auto_envvar_prefix": "UVICORN"})
-@click.argument("app")
-@click.option(
+@quo.command(context_settings={"auto_envvar_prefix": "CITUS.UVICORN"})
+@quo.arg("app")
+@quo.app(
     "--host",
     type=str,
     default="127.0.0.1",
     help="Bind socket to this host.",
     show_default=True,
 )
-@click.option(
+@quo.app(
     "--port",
     type=int,
     default=8000,
     help="Bind socket to this port.",
     show_default=True,
 )
-@click.option("--uds", type=str, default=None, help="Bind to a UNIX domain socket.")
-@click.option(
+@quo.app(
+        "--uds", 
+        type=str, 
+        help="Bind to a UNIX domain socket."
+        )
+@quo.app(
     "--fd", type=int, default=None, help="Bind to socket from this file descriptor."
 )
 @click.option(
     "--debug", is_flag=True, default=False, help="Enable debug mode.", hidden=True
 )
-@click.option("--reload", is_flag=True, default=False, help="Enable auto-reload.")
+@quo.app("--reload", is_flag=True, default=False, help="Enable auto-reload.")
 @click.option(
     "--reload-dir",
     "reload_dirs",
@@ -311,13 +317,13 @@ def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> No
     multiple=True,
     help="Specify custom default HTTP response headers as a Name:Value pair",
 )
-@click.option(
+@quo.app(
     "--version",
     is_flag=True,
     callback=print_version,
     expose_value=False,
     is_eager=True,
-    help="Display the uvicorn version and exit.",
+    help="Display the citus version and exit.",
 )
 @click.option(
     "--app-dir",
@@ -326,7 +332,7 @@ def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> No
     help="Look for APP in the specified directory, by adding this to the PYTHONPATH."
     " Defaults to the current working directory.",
 )
-@click.option(
+@quo.app(
     "--factory",
     is_flag=True,
     default=False,
