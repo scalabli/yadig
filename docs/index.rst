@@ -28,6 +28,8 @@ Citus Documentation
    cors.rst
    debugging.rst
    encoders.rst
+   extra-data-types.rst
+   extra-models.rst
    apps.rst
    args.rst
    confirm.rst.
@@ -47,10 +49,12 @@ Citus Documentation
    columns.rst
    padding.rst
    panel.rst
+   header-params.rst
    help_text.rst
    filters.rst
    full_screen_apps.rst
    key_bindings.rst
+   metadata.rst
    progress_bars.rst
    syntax.rst
    styling.rst
