@@ -114,7 +114,7 @@ Run the server with:
 ```console
 $ citus main:app --reload
 
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Citus running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [28720]
 INFO:     Started server process [28722]
 INFO:     Waiting for application startup.
@@ -130,7 +130,7 @@ The command `citus main:app` refers to:
 
 * `main`: the file `main.py` (the Python "module").
 * `app`: the object created inside of `main.py` with the line `app = citus.App()`.
-* `--reload`: make the server restart after code changes. Only do this for development.
+* `--reload` or `-r`: make the server restart after code changes. Only do this for development.
 
 </details>
 
