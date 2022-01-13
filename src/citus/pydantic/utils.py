@@ -37,7 +37,6 @@ from .typing import (
     is_literal_type,
     is_union,
 )
-from .version import version_info
 
 if TYPE_CHECKING:
     from inspect import Signature

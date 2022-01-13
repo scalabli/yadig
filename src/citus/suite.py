@@ -21,9 +21,9 @@ from citus.params import Depends
 from citus.types import DecoratedCallable
 from citus.starlette.datastructures import State, URLPath
 from citus.starlette.exceptions import ExceptionMiddleware
-from citus.starlette.middleware import Middleware
-from citus.starlette.middleware.base import BaseHTTPMiddleware
-from citus.starlette.middleware.errors import ServerErrorMiddleware
+from citus.middleware import Middleware
+from citus.middleware.base import BaseHTTPMiddleware
+from citus.middleware.errors import ServerErrorMiddleware
 from citus.requests import Request
 from citus.starlette.responses import HTMLResponse, JSONResponse, Response
 from citus.starlette.routing import BaseRoute, Router

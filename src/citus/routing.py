@@ -27,7 +27,7 @@ from citus.dependencies.utils import (
     solve_dependencies,
 )
 from citus.encoders import DictIntStrAny, SetIntStr, jsonable_encoder
-from citus.exceptions import RequestValidationError, WebSocketRequestValidationError
+from citus.errors import RequestValidationError, WebSocketRequestValidationError
 from citus.openapi.constants import STATUS_CODES_WITH_NO_BODY
 from citus.types import DecoratedCallable
 from citus.utils import (
@@ -54,7 +54,7 @@ from citus.starlette.routing import (
 )
 from citus.starlette.status import WS_1008_POLICY_VIOLATION
 from citus.starlette.types import ASGIApp
-from citus.starlette.websockets import WebSocket
+from citus.websockets import WebSocket
 
 
 def _prepare_response_content(

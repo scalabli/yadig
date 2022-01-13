@@ -1,4 +1,6 @@
-from typing import Any, Dict, Optional, Sequence, Type
+import typing
+import http
+
 from quo.errors import Outlier
 from citus.pydantic import BaseModel, ValidationError, create_model
 from citus.pydantic.error_wrappers import ErrorList
@@ -20,29 +22,33 @@ class HTTPExceptions(Outlier):
         class_name = self.__class__.__name__
         return f"{class_name}(status_code={self.status_code!r}, detail={self.detail!r})"
 
-class HTTPException(StarletteHTTPException):
+class HTTPException(HTTPExceptions):
     def __init__(
         self,
         status_code: int,
-        detail: Any = None,
-        headers: Optional[Dict[str, Any]] = None,
+        detail: typing.Any = None,
+        headers: typing.Optional[typing.Dict[str, typing.Any]] = None,
     ) -> None:
         super().__init__(status_code=status_code, detail=detail)
         self.headers = headers
 
 
-RequestErrorModel: Type[BaseModel] = create_model("Request")
-WebSocketErrorModel: Type[BaseModel] = create_model("WebSocket")
+RequestErrorModel: typing.Type[BaseModel] = create_model("Request")
+WebSocketErrorModel: typing.Type[BaseModel] = create_model("WebSocket")
 
 
 class RequestValidationError(ValidationError):
-    def __init__(self, errors: Sequence[ErrorList], *, body: Any = None) -> None:
+    def __init__(
+            self, 
+            errors: typing.Sequence[ErrorList],
+            *, body: typing.Any = None
+            )-> None:
         self.body = body
         super().__init__(errors, RequestErrorModel)
 
 
 class WebSocketRequestValidationError(ValidationError):
-    def __init__(self, errors: Sequence[ErrorList]) -> None:
+    def __init__(self, errors: typing.Sequence[ErrorList]) -> None:
         super().__init__(errors, WebSocketErrorModel)
 
 class ImportFromStringError(Outlier):

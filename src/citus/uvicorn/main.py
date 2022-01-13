@@ -6,6 +6,7 @@ import sys
 import typing
 
 import click
+import citus
 from asgiref.typing import ASGIApplication
 
 import citus.uvicorn
@@ -42,7 +43,7 @@ def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> No
     click.echo(
         "Running citus %s with %s %s on %s"
         % (
-            uvicorn.__version__,
+            citus.__version__,
             platform.python_implementation(),
             platform.python_version(),
             platform.system(),

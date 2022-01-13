@@ -1,7 +1,7 @@
 from citus.encoders import jsonable_encoder
 from citus.errors import RequestValidationError
 from citus.errors import HTTPExceptions as HTTPException
-from citus.starlette.requests import Request
+from citus.requests import Request
 from citus.starlette.responses import JSONResponse
 from citus.starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 

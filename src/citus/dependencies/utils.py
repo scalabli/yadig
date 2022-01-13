@@ -52,7 +52,7 @@ from citus.starlette.concurrency import run_in_threadpool
 from citus.starlette.datastructures import FormData, Headers, QueryParams, UploadFile
 from citus.requests import HTTPConnection, Request
 from citus.starlette.responses import Response
-from citus..websockets import WebSocket
+from citus.websockets import WebSocket
 
 sequence_shapes = {
     SHAPE_LIST,

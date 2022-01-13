@@ -12,7 +12,7 @@ from urllib.parse import quote
 
 import anyio
 
-from citus.starlette.background import BackgroundTask
+from citus.background import BackgroundTask
 from citus.starlette.concurrency import iterate_in_threadpool
 from citus.starlette.datastructures import URL, MutableHeaders
 from citus.starlette.types import Receive, Scope, Send

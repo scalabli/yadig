@@ -1,14 +1,14 @@
 """Citus framework, high performance, easy to learn, fast to code, ready for production"""
 
 
-from starlette import status as status
+from citus.starlette import status as status
 
 from citus.suite import App
 from citus.uvicorn.main import run
 
 from .background import BackgroundTasks as BackgroundTasks
 from .datastructures import UploadFile as UploadFile
-from .exceptions import HTTPException as HTTPException
+from .errors import HTTPException as HTTPException
 from .params import body as Body
 from .params import cookie as Cookie
 from .params import depends as Depends

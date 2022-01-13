@@ -2,7 +2,7 @@ from typing import Optional
 
 from citus.openapi.models import OpenIdConnect as OpenIdConnectModel
 from citus.security.base import SecurityBase
-from citus.errors import HTTPExceptions HTTPException
+from citus.errors import HTTPExceptions as HTTPException
 from citus.requests import Request
 from citus.starlette.status import HTTP_403_FORBIDDEN
 
