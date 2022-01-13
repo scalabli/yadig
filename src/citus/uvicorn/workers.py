@@ -7,8 +7,8 @@ from typing import Any
 from gunicorn.arbiter import Arbiter
 from gunicorn.workers.base import Worker
 
-from uvicorn.config import Config
-from uvicorn.main import Server
+from citus.uvicorn.config import Config
+from citus.uvicorn.main import Server
 
 
 class UvicornWorker(Worker):
@@ -22,12 +22,12 @@ class UvicornWorker(Worker):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super(UvicornWorker, self).__init__(*args, **kwargs)
 
-        logger = logging.getLogger("uvicorn.error")
+        logger = logging.getLogger("citus.uvicorn.error")
         logger.handlers = self.log.error_log.handlers
         logger.setLevel(self.log.error_log.level)
         logger.propagate = False
 
-        logger = logging.getLogger("uvicorn.access")
+        logger = logging.getLogger("citus.uvicorn.access")
         logger.handlers = self.log.access_log.handlers
         logger.setLevel(self.log.access_log.level)
         logger.propagate = False

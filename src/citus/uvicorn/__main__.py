@@ -1,4 +1,4 @@
-import uvicorn
+import citus.uvicorn
 
 if __name__ == "__main__":
-    uvicorn.main()
+    citus.uvicorn.main()

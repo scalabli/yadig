@@ -10,14 +10,15 @@ import sys
 from pathlib import Path
 from typing import Awaitable, Callable, Dict, List, Optional, Tuple, Type, Union
 
-from .logging import TRACE_LOG_LEVEL
+from citus.logging import TRACE_LOG_LEVEL
 
 if sys.version_info < (3, 8):
     from typing_extensions import Literal
 else:
     from typing import Literal
 
-import click
+import quo
+from quo.i_o import flair
 from asgiref.typing import ASGIApplication
 
 try:
@@ -433,7 +434,7 @@ class Config:
             for key, value in self.headers
         ]
         self.encoded_headers = (
-            [(b"server", b"uvicorn")] + encoded_headers
+            [(b"server", b"citus")] + encoded_headers
             if b"server" not in dict(encoded_headers) and self.server_header
             else encoded_headers
         )
@@ -456,14 +457,14 @@ class Config:
             self.loaded_app = import_from_string(self.app)
         except ImportFromStringError as exc:
             logger.error("Error loading ASGI app. %s" % exc)
-            sys.exit(1)
+            quo.exit(1)
 
         try:
             self.loaded_app = self.loaded_app()
         except TypeError as exc:
             if self.factory:
                 logger.error("Error loading ASGI app factory: %s", exc)
-                sys.exit(1)
+                quo.exit(1)
         else:
             if not self.factory:
                 logger.warning(
@@ -514,23 +515,23 @@ class Config:
                 os.chmod(self.uds, uds_perms)
             except OSError as exc:
                 logger.error(exc)
-                sys.exit(1)
+                quo.exit(1)
 
-            message = "Uvicorn running on unix socket %s (Press CTRL+C to quit)"
+            message = "Citus server running on unix socket %s (Press CTRL+C to quit)"
             sock_name_format = "%s"
             color_message = (
-                "Uvicorn running on "
-                + click.style(sock_name_format, bold=True)
+                "Citus server running on "
+                + flair(sock_name_format, bold=True)
                 + " (Press CTRL+C to quit)"
             )
             logger_args = [self.uds]
         elif self.fd:  # pragma: py-win32
             sock = socket.fromfd(self.fd, socket.AF_UNIX, socket.SOCK_STREAM)
-            message = "Uvicorn running on socket %s (Press CTRL+C to quit)"
+            message = "Citus server running on socket %s (Press CTRL+C to quit)"
             fd_name_format = "%s"
             color_message = (
-                "Uvicorn running on "
-                + click.style(fd_name_format, bold=True)
+                "Citus server running on "
+                + flair(fd_name_format, bold=True)
                 + " (Press CTRL+C to quit)"
             )
             logger_args = [sock.getsockname()]
@@ -549,12 +550,12 @@ class Config:
                 sock.bind((self.host, self.port))
             except OSError as exc:
                 logger.error(exc)
-                sys.exit(1)
+                quo.exit(1)
 
-            message = f"Uvicorn running on {addr_format} (Press CTRL+C to quit)"
+            message = f"Citus server running on {addr_format} (Press CTRL+C to quit)"
             color_message = (
-                "Uvicorn running on "
-                + click.style(addr_format, bold=True)
+                "Citus server running on "
+                + flair(addr_format, bold=True)
                 + " (Press CTRL+C to quit)"
             )
             protocol_name = "https" if self.is_ssl else "http"

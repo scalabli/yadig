@@ -4,12 +4,12 @@ import platform
 import ssl
 import sys
 import typing
-import quo
 
 import click
 from asgiref.typing import ASGIApplication
-import citus
+
 import citus.uvicorn
+import citus.logging
 from citus.uvicorn.config import (
     HTTP_PROTOCOLS,
     INTERFACES,
@@ -24,63 +24,57 @@ from citus.uvicorn.config import (
 from citus.uvicorn.server import Server, ServerState  # noqa: F401  # Used to be defined here.
 from citus.uvicorn.supervisors import ChangeReload, Multiprocess
 
-LEVEL_CHOICES = quo.types.Choice(list(LOG_LEVELS.keys()))
-HTTP_CHOICES = quo.types.Choice(list(HTTP_PROTOCOLS.keys()))
-WS_CHOICES = quo.types.Choice(list(WS_PROTOCOLS.keys()))
-LIFESPAN_CHOICES = quo.types.Choice(list(LIFESPAN.keys()))
-LOOP_CHOICES = quo.types.Choice([key for key in LOOP_SETUPS.keys() if key != "none"])
-INTERFACE_CHOICES = quo.types.Choice(INTERFACES)
+LEVEL_CHOICES = click.Choice(list(LOG_LEVELS.keys()))
+HTTP_CHOICES = click.Choice(list(HTTP_PROTOCOLS.keys()))
+WS_CHOICES = click.Choice(list(WS_PROTOCOLS.keys()))
+LIFESPAN_CHOICES = click.Choice(list(LIFESPAN.keys()))
+LOOP_CHOICES = click.Choice([key for key in LOOP_SETUPS.keys() if key != "none"])
+INTERFACE_CHOICES = click.Choice(INTERFACES)
 
 STARTUP_FAILURE = 3
 
 logger = logging.getLogger("citus.uvicorn.error")
 
 
-def print_version(clime: quo.core.Context, param: quo.core.Parameter, value: bool) -> None:
-    if not value or clime.resilient_parsing:
+def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> None:
+    if not value or ctx.resilient_parsing:
         return
-    quo.inscirbe(
-            quo.text.HTML('<skyblue>Running citus {citus.__version__}</skyblue/>'))
+    click.echo(
+        "Running citus %s with %s %s on %s"
+        % (
+            uvicorn.__version__,
+            platform.python_implementation(),
+            platform.python_version(),
+            platform.system(),
+        )
+    )
+    ctx.exit()
 
-  #  quo.echo(
-     #   "Running citus %s with %s %s on %s"
-    #    % (
-         #   citus.__version__,
-        #    platform.python_implementation(),
-      #      platform.python_version(),
-      #      platform.system(),
-      #  )
-   # )
-    clime.exit()
 
-@quo.command(context_settings={"auto_envvar_prefix": "CITUS.UVICORN"})
-@quo.arg("app")
-@quo.app(
+@click.command(context_settings={"auto_envvar_prefix": "UVICORN"})
+@click.argument("app")
+@click.option(
     "--host",
     type=str,
     default="127.0.0.1",
     help="Bind socket to this host.",
     show_default=True,
 )
-@quo.app(
+@click.option(
     "--port",
     type=int,
     default=8000,
     help="Bind socket to this port.",
     show_default=True,
 )
-@quo.app(
-        "--uds", 
-        type=str, 
-        help="Bind to a UNIX domain socket."
-        )
-@quo.app(
+@click.option("--uds", type=str, default=None, help="Bind to a UNIX domain socket.")
+@click.option(
     "--fd", type=int, default=None, help="Bind to socket from this file descriptor."
 )
 @click.option(
     "--debug", is_flag=True, default=False, help="Enable debug mode.", hidden=True
 )
-@quo.app("--reload", is_flag=True, default=False, help="Enable auto-reload.")
+@click.option("--reload", "-r", is_flag=True, default=True, help="Enable auto-reload.")
 @click.option(
     "--reload-dir",
     "reload_dirs",
@@ -317,13 +311,13 @@ def print_version(clime: quo.core.Context, param: quo.core.Parameter, value: boo
     multiple=True,
     help="Specify custom default HTTP response headers as a Name:Value pair",
 )
-@quo.app(
+@click.option(
     "--version",
     is_flag=True,
     callback=print_version,
     expose_value=False,
     is_eager=True,
-    help="Display the citus version and exit.",
+    help="Display citus version and exit.",
 )
 @click.option(
     "--app-dir",
@@ -332,7 +326,7 @@ def print_version(clime: quo.core.Context, param: quo.core.Parameter, value: boo
     help="Look for APP in the specified directory, by adding this to the PYTHONPATH."
     " Defaults to the current working directory.",
 )
-@quo.app(
+@click.option(
     "--factory",
     is_flag=True,
     default=False,

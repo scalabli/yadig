@@ -30,10 +30,10 @@ from citus.security.base import SecurityBase
 from citus.security.oauth2 import OAuth2, SecurityScopes
 from citus.security.open_id_connect_url import OpenIdConnect
 from citus.utils import create_response_field, get_path_param_names
-from pydantic import BaseModel, create_model
-from pydantic.error_wrappers import ErrorWrapper
-from pydantic.errors import MissingError
-from pydantic.fields import (
+from citus.pydantic import BaseModel, create_model
+from citus.pydantic.error_wrappers import ErrorWrapper
+from citus.pydantic.errors import MissingError
+from citus.pydantic.fields import (
     SHAPE_LIST,
     SHAPE_SEQUENCE,
     SHAPE_SET,
@@ -44,15 +44,15 @@ from pydantic.fields import (
     ModelField,
     Required,
 )
-from pydantic.schema import get_annotation_from_field_info
-from pydantic.typing import ForwardRef, evaluate_forwardref
-from pydantic.utils import lenient_issubclass
-from starlette.background import BackgroundTasks
-from starlette.concurrency import run_in_threadpool
-from starlette.datastructures import FormData, Headers, QueryParams, UploadFile
-from starlette.requests import HTTPConnection, Request
-from starlette.responses import Response
-from starlette.websockets import WebSocket
+from citus.pydantic.schema import get_annotation_from_field_info
+from citus.pydantic.typing import ForwardRef, evaluate_forwardref
+from citus.pydantic.utils import lenient_issubclass
+from citus.background import BackgroundTasks
+from citus.starlette.concurrency import run_in_threadpool
+from citus.starlette.datastructures import FormData, Headers, QueryParams, UploadFile
+from citus.requests import HTTPConnection, Request
+from citus.starlette.responses import Response
+from citus..websockets import WebSocket
 
 sequence_shapes = {
     SHAPE_LIST,
@@ -71,45 +71,22 @@ sequence_shape_to_type = {
 }
 
 
-multipart_not_installed_error = (
-    'Form data requires "python-multipart" to be installed. \n'
-    'You can install "python-multipart" with: \n\n'
-    "pip install python-multipart\n"
-)
-multipart_incorrect_install_error = (
-    'Form data requires "python-multipart" to be installed. '
-    'It seems you installed "multipart" instead. \n'
-    'You can remove "multipart" with: \n\n'
-    "pip uninstall multipart\n\n"
-    'And then install "python-multipart" with: \n\n'
-    "pip install python-multipart\n"
-)
 
-
-def check_file_field(field: ModelField) -> None:
+def check_file_field(
+        field: ModelField
+        ) -> None:
     field_info = field.field_info
     if isinstance(field_info, params.Form):
-        try:
-            # __version__ is available in both multiparts, and can be mocked
-            from multipart import __version__  # type: ignore
-
-            assert __version__
-            try:
-                # parse_options_header is only available in the right multipart
-                from multipart.multipart import parse_options_header  # type: ignore
-
-                assert parse_options_header
-            except ImportError:
-                logger.error(multipart_incorrect_install_error)
-                raise RuntimeError(multipart_incorrect_install_error)
-        except ImportError:
-            logger.error(multipart_not_installed_error)
-            raise RuntimeError(multipart_not_installed_error)
+        from multiparse.multipart import parse_options_header  
+        assert parse_options_header
 
 
 def get_param_sub_dependant(
-    *, param: inspect.Parameter, path: str, security_scopes: Optional[List[str]] = None
-) -> Dependant:
+        *, 
+        param: inspect.Parameter, 
+        path: str,
+        security_scopes: Optional[List[str]] = None
+        ) -> Dependant:
     depends: params.Depends = param.default
     if depends.dependency:
         dependency = depends.dependency

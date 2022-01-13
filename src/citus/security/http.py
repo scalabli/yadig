@@ -2,14 +2,14 @@ import binascii
 from base64 import b64decode
 from typing import Optional
 
-from citus.exceptions import HTTPException
+from citus.errors import HTTPException
 from citus.openapi.models import HTTPBase as HTTPBaseModel
 from citus.openapi.models import HTTPBearer as HTTPBearerModel
 from citus.security.base import SecurityBase
 from citus.security.utils import get_authorization_scheme_param
-from pydantic import BaseModel
-from starlette.requests import Request
-from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
+from citus.pydantic import BaseModel
+from citus.requests import Request
+from citus.starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
 
 class HTTPBasicCredentials(BaseModel):

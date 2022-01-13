@@ -6,7 +6,7 @@ from multiprocessing.context import SpawnProcess
 from socket import socket
 from types import FrameType
 from typing import Callable, List, Optional
-
+from quo.i_o import flair
 
 from citus.uvicorn.config import Config
 from citus.uvicorn.subprocess import get_subprocess

@@ -5,13 +5,14 @@ from enum import Enum
 from typing import Any, Dict, Optional, Set, Type, Union, cast
 
 import citus
+from quo.errors import UsageError
 from citus.datastructures import DefaultPlaceholder, DefaultType
 from citus.openapi.constants import REF_PREFIX
-from pydantic import BaseConfig, BaseModel, create_model
-from pydantic.class_validators import Validator
-from pydantic.fields import FieldInfo, ModelField, UndefinedType
-from pydantic.schema import model_process_schema
-from pydantic.utils import lenient_issubclass
+from citus.pydantic import BaseConfig, BaseModel, create_model
+from citus.pydantic.class_validators import Validator
+from citus.pydantic.fields import FieldInfo, ModelField, UndefinedType
+from citus.pydantic.schema import model_process_schema
+from citus.pydantic.utils import lenient_issubclass
 
 
 def get_model_definitions(
@@ -64,7 +65,7 @@ def create_response_field(
     try:
         return response_field(field_info=field_info)
     except RuntimeError:
-        raise citus.exceptions.FastAPIError(
+        raise UsageError(
             f"Invalid args for response field! Hint: check that {type_} is a valid pydantic field type"
         )
 

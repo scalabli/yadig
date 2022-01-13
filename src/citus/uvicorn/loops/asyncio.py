@@ -2,7 +2,7 @@ import asyncio
 import logging
 import sys
 
-logger = logging.getLogger("uvicorn.error")
+logger = logging.getLogger("citus.uvicorn.error")
 
 
 def asyncio_setup(reload: bool = False) -> None:  # pragma: no cover

@@ -2,7 +2,7 @@ import json
 from typing import Any, Dict, Optional
 
 from citus.encoders import jsonable_encoder
-from starlette.responses import HTMLResponse
+from citus.starlette.responses import HTMLResponse
 
 
 def get_swagger_ui_html(
@@ -11,7 +11,7 @@ def get_swagger_ui_html(
     title: str,
     swagger_js_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui-bundle.js",
     swagger_css_url: str = "https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css",
-    swagger_favicon_url: str = "https://fastapi.tiangolo.com/img/favicon.png",
+    swagger_favicon_url: str = "https://github.com/secretum-inc/citus/docs/images/favicon.png",
     oauth2_redirect_url: Optional[str] = None,
     init_oauth: Optional[Dict[str, Any]] = None,
 ) -> HTMLResponse:
@@ -67,7 +67,7 @@ def get_redoc_html(
     openapi_url: str,
     title: str,
     redoc_js_url: str = "https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js",
-    redoc_favicon_url: str = "https://fastapi.tiangolo.com/img/favicon.png",
+    redoc_favicon_url: str = "https://github.com/secretum-inc/citus/docs/images/favicon.png",
     with_google_fonts: bool = True,
 ) -> HTMLResponse:
     html = f"""

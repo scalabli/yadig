@@ -40,40 +40,6 @@ HANDLED_SIGNALS = (
 
 logger = logging.getLogger("citus.uvicorn.error")
 
-kb = quo.keys.KeyBinder()
-
-root_container = quo.widgets.Box(
-        quo.widgets.Frame(
-            quo.widgets.TextArea(
-                text="Hello world!\nPress control-c to quit.",
-                width=40,
-                height=10,
-                )
-            ),
-        )
-
-layout = quo.layout.Layout(container=root_container)
-
-kb = quo.keys.KeyBinder()
-
-@kb.add("ctrl-c")
-def _(event):
-    "Quit when control-c is pressed."
-    event.app.exit()
-
-# Build a main application object.
-application = quo.Suite(layout=layout, bind=kb, full_screen=True)
-
-def main():
-    application.run()
-
-if __name__ == "__main__":
-    main()
-def create_kb() -> kb:
-    @kb.add("ctrl-q")
-    def _(event):
-        event.app.exit()
-    return kb
 
 class ServerState:
     """

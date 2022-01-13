@@ -10,7 +10,7 @@ from asgiref.typing import (
     WWWScope,
 )
 
-from ..logging import TRACE_LOG_LEVEL
+from citus.logging import TRACE_LOG_LEVEL
 
 PLACEHOLDER_FORMAT = {
     "body": "<{length} bytes>",
@@ -38,7 +38,7 @@ class MessageLoggerMiddleware:
     def __init__(self, app: ASGI3Application):
         self.task_counter = 0
         self.app = app
-        self.logger = logging.getLogger("uvicorn.asgi")
+        self.logger = logging.getLogger("citus.uvicorn.asgi")
 
         def trace(message: Any, *args: Any, **kwargs: Any) -> None:
             self.logger.log(TRACE_LOG_LEVEL, message, *args, **kwargs)

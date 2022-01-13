@@ -1,10 +1,6 @@
 import importlib
 from typing import Any
-
-
-class ImportFromStringError(Exception):
-    pass
-
+from citus.errors import ImportFromStringError
 
 def import_from_string(import_str: Any) -> Any:
     if not isinstance(import_str, str):

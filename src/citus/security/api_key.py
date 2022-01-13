@@ -2,9 +2,9 @@ from typing import Optional
 
 from citus.openapi.models import APIKey, APIKeyIn
 from citus.security.base import SecurityBase
-from starlette.exceptions import HTTPException
-from starlette.requests import Request
-from starlette.status import HTTP_403_FORBIDDEN
+from citus.errors import HTTPExceptions HTTPException
+from citus.requests import Request
+from citus.starlette.status import HTTP_403_FORBIDDEN
 
 
 class APIKeyBase(SecurityBase):

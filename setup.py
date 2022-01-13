@@ -7,6 +7,7 @@ setup(
     name="citus",
     install_requires=[
         "quo",
+        "multiparse",
         "asgiref>= 3.4.0",
         "h11>= 0.8",
         "typing-extensions", # env_marker_below_38",

@@ -3,7 +3,8 @@ import logging
 import sys
 from copy import copy
 from typing import Optional
-import quo
+
+from quo.i_o import flair
 
 TRACE_LOG_LEVEL = 5
 logger = logging.getLogger("citus")
@@ -18,13 +19,13 @@ class ColourizedFormatter(logging.Formatter):
     """
 
     level_name_colors = {
-        TRACE_LOG_LEVEL: lambda level_name: click.style(str(level_name), fg="blue"),
-        logging.DEBUG: lambda level_name: click.style(str(level_name), fg="cyan"),
-        logging.INFO: lambda level_name: click.style(str(level_name), fg="green"),
-        logging.WARNING: lambda level_name: click.style(str(level_name), fg="yellow"),
-        logging.ERROR: lambda level_name: click.style(str(level_name), fg="red"),
-        logging.CRITICAL: lambda level_name: click.style(
-            str(level_name), fg="bright_red"
+        TRACE_LOG_LEVEL: lambda level_name: flair(str(level_name), fg="blue"),
+        logging.DEBUG: lambda level_name: flair(str(level_name), fg="cyan"),
+        logging.INFO: lambda level_name: flair(str(level_name), fg="green"),
+        logging.WARNING: lambda level_name: flair(str(level_name), fg="yellow"),
+        logging.ERROR: lambda level_name: flair(str(level_name), fg="red"),
+        logging.CRITICAL: lambda level_name: flair(
+            str(level_name), fg="vred"
         ),
     }
 
@@ -71,11 +72,11 @@ class DefaultFormatter(ColourizedFormatter):
 
 class AccessFormatter(ColourizedFormatter):
     status_code_colours = {
-        1: lambda code: click.style(str(code), fg="bright_white"),
-        2: lambda code: click.style(str(code), fg="green"),
-        3: lambda code: click.style(str(code), fg="yellow"),
-        4: lambda code: click.style(str(code), fg="red"),
-        5: lambda code: click.style(str(code), fg="bright_red"),
+        1: lambda code: flair(str(code), fg="vwhite"),
+        2: lambda code: flair(str(code), fg="green"),
+        3: lambda code: flair(str(code), fg="yellow"),
+        4: lambda code: flair(str(code), fg="red"),
+        5: lambda code: flair(str(code), fg="vred"),
     }
 
     def get_status_code(self, status_code: int) -> str:

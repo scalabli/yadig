@@ -45,8 +45,8 @@ class H11Protocol(asyncio.Protocol):
         self.app = config.loaded_app
         self.on_connection_lost = on_connection_lost
         self.loop = _loop or asyncio.get_event_loop()
-        self.logger = logging.getLogger("uvicorn.error")
-        self.access_logger = logging.getLogger("uvicorn.access")
+        self.logger = logging.getLogger("citus.uvicorn.error")
+        self.access_logger = logging.getLogger("citus.uvicorn.access")
         self.access_log = self.access_logger.hasHandlers()
         self.conn = h11.Connection(h11.SERVER)
         self.ws_protocol_class = config.ws_protocol_class

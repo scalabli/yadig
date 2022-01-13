@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Any, Callable, Dict, Iterable, List, Optional, Union
 
 from citus.logger import logger
-from pydantic import AnyUrl, BaseModel, Field
+from citus.pydantic import AnyUrl, BaseModel, Field
 
 try:
     import email_validator  # type: ignore

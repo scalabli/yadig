@@ -1,7 +1,7 @@
 from typing import Any, Callable, List, Optional, Sequence
 
 from citus.security.base import SecurityBase
-from pydantic.fields import ModelField
+from citus.pydantic.fields import ModelField
 
 
 class SecurityRequirement:

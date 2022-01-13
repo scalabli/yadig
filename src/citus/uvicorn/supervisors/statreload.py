@@ -37,7 +37,7 @@ class StatReload(BaseReload):
                     display_path = str(file.relative_to(Path.cwd()))
                 except ValueError:
                     pass
-                message = "StatReload detected file change in '%s'. Reloading..."
+                message = "Citus servee has detected file change in '%s'. Reloading..."
                 logger.warning(message, display_path)
                 return True
         return False

@@ -21,17 +21,17 @@ from citus.utils import (
     generate_operation_id_for_path,
     get_model_definitions,
 )
-from pydantic import BaseModel
-from pydantic.fields import ModelField, Undefined
-from pydantic.schema import (
+from citus.pydantic import BaseModel
+from citus.pydantic.fields import ModelField, Undefined
+from citus.pydantic.schema import (
     field_schema,
     get_flat_models_from_fields,
     get_model_name_map,
 )
-from pydantic.utils import lenient_issubclass
-from starlette.responses import JSONResponse
-from starlette.routing import BaseRoute
-from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+from citus.pydantic.utils import lenient_issubclass
+from citus.starlette.responses import JSONResponse
+from citus.starlette.routing import BaseRoute
+from citus.starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 validation_error_definition = {
     "title": "ValidationError",
@@ -359,7 +359,7 @@ def get_openapi(
     *,
     title: str,
     version: str,
-    openapi_version: str = "3.0.2",
+    openapi_version: str = "2022.1",
     description: Optional[str] = None,
     routes: Sequence[BaseRoute],
     tags: Optional[List[Dict[str, Any]]] = None,
