@@ -15,7 +15,15 @@ import anyio
 from citus.background import BackgroundTask
 from citus.starlette.concurrency import iterate_in_threadpool
 from citus.starlette.datastructures import URL, MutableHeaders
-from citus.starlette.types import Receive, Scope, Send
+
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]  
+
+Receive = typing.Callable[[], typing.Awaitable[Message]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 # Workaround for adding samesite support to pre 3.8 python
 http.cookies.Morsel._reserved["samesite"] = "SameSite"  # type: ignore

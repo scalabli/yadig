@@ -544,22 +544,22 @@ def form(  # noqa: N802
 class File(Form):
     def __init__(
         self,
-        default: Any,
+        default: ty.Any,
         *,
         media_type: str = "multiparse/form-data",
-        alias: Optional[str] = None,
-        title: Optional[str] = None,
-        description: Optional[str] = None,
-        gt: Optional[float] = None,
-        ge: Optional[float] = None,
-        lt: Optional[float] = None,
-        le: Optional[float] = None,
-        min_length: Optional[int] = None,
-        max_length: Optional[int] = None,
-        regex: Optional[str] = None,
-        example: Any = Undefined,
-        examples: Optional[Dict[str, Any]] = None,
-        **extra: Any,
+        alias: ty.Optional[str] = None,
+        title: ty.Optional[str] = None,
+        description: ty.Optional[str] = None,
+        gt: ty.Optional[float] = None,
+        ge: ty.Optional[float] = None,
+        lt: ty.Optional[float] = None,
+        le: ty.Optional[float] = None,
+        min_length: ty.Optional[int] = None,
+        max_length: ty.Optional[int] = None,
+        regex: ty.Optional[str] = None,
+        example: ty.Any = Undefined,
+        examples: ty.Optional[ty.Dict[str, ty.Any]] = None,
+        **extra: ty.Any,
     ):
         super().__init__(
             default,
@@ -580,23 +580,23 @@ class File(Form):
         )
 
 def file(  # noqa: N802
-    default: Any,
+    default: ty.Any,
     *,
     media_type: str = "multiparse/form-data",
-    alias: Optional[str] = None,
-    title: Optional[str] = None,
+    alias: ty.Optional[str] = None,
+    title: ty.Optional[str] = None,
     description: Optional[str] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
-    regex: Optional[str] = None,
-    example: Any = Undefined,
-    examples: Optional[Dict[str, Any]] = None,
-    **extra: Any,
-) -> Any:
+    gt: ty.Optional[float] = None,
+    ge: ty.Optional[float] = None,
+    lt: ty.Optional[float] = None,
+    le: ty.Optional[float] = None,
+    min_length: ty.Optional[int] = None,
+    max_length: ty.Optional[int] = None,
+    regex: ty.Optional[str] = None,
+    example: ty.Any = Undefined,
+    examples: ty.Optional[ty.Dict[str, ty.Any]] = None,
+    **extra: ty.Any,
+) -> ty.Any:
     return File(
         default,
         media_type=media_type,
@@ -619,7 +619,7 @@ def file(  # noqa: N802
 class Depends:
     def __init__(
             self, 
-            dependency: Optional[Callable[..., Any]] = None,
+            dependency: ty.Optional[ty.Callable[..., ty.Any]] = None,
             *, 
             use_cache: bool = True
             ):
@@ -634,9 +634,9 @@ class Depends:
 
 
 def depends(  # noqa: N802
-        dependency: Optional[Callable[..., Any]] = None,
+        dependency: ty.Optional[ty.Callable[..., ty.Any]] = None,
         *, use_cache: bool = True
-        ) -> Any:
+        ) -> ty.Any:
     return Depends(
             dependency=dependency, 
             use_cache=use_cache
@@ -646,23 +646,26 @@ def depends(  # noqa: N802
 class Security(Depends):
     def __init__(
             self,
-            dependency: Optional[Callable[..., Any]] = None,
+            dependency: ty.Optional[ty.Callable[..., ty.Any]] = None,
             *,
-            scopes: Optional[Sequence[str]] = None,
+            scopes: ty.Optional[ty.Sequence[str]] = None,
             use_cache: bool = True,
             ):
 
-        super().__init__(dependency=dependency, use_cache=use_cache)
+        super().__init__(
+                dependency=dependency, 
+                use_cache=use_cache
+                )
         self.scopes = scopes or []
 
 
 
 def security(  # noqa: N802
-    dependency: Optional[Callable[..., Any]] = None,
+    dependency: ty.Optional[ty.Callable[..., ty.Any]] = None,
     *,
-    scopes: Optional[Sequence[str]] = None,
+    scopes: ty.Optional[ty.Sequence[str]] = None,
     use_cache: bool = True,
-) -> Any:
+    ) -> ty.Any:
     return Security(
             dependency=dependency, 
             scopes=scopes,

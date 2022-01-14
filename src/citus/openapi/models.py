@@ -8,7 +8,7 @@ try:
     import email_validator  # type: ignore
 
     assert email_validator  # make autoflake ignore the unused import
-    from pydantic import EmailStr
+    from citus.pydantic import EmailStr
 except ImportError:  # pragma: no cover
 
     class EmailStr(str):  # type: ignore
@@ -29,6 +29,7 @@ class Contact(BaseModel):
     name: Optional[str] = None
     url: Optional[AnyUrl] = None
     email: Optional[EmailStr] = None
+    location: Optional[str] = None
 
     class Config:
         extra = "allow"

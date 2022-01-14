@@ -16,7 +16,7 @@ from citus.starlette.datastructures import URL, Headers, URLPath
 from citus.errors import HTTPExceptions as HTTPException
 from citus.requests import Request
 from citus.starlette.responses import PlainTextResponse, RedirectResponse
-from citus.starlette.types import ASGIApp, Receive, Scope, Send
+from citus.errors import NoMatchFound
 from citus.websockets import WebSocket, WebSocketClose
 
 if sys.version_info >= (3, 7):
@@ -24,13 +24,15 @@ if sys.version_info >= (3, 7):
 else:
     from contextlib2 import asynccontextmanager  # pragma: no cover
 
+Scope = typing.MutableMapping[str, typing.Any]
 
-class NoMatchFound(Exception):
-    """
-    Raised by `.url_for(name, **path_params)` and `.url_path_for(name, **path_params)`
-    if no matching route exists.
-    """
+Message = typing.MutableMapping[str, typing.Any]
 
+Receive = typing.Callable[[], typing.Awaitable[Message]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typing.Awaitable[None]]
 
 class Match(Enum):
     NONE = 0

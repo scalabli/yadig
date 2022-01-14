@@ -6,7 +6,8 @@ from shlex import shlex
 from urllib.parse import SplitResult, parse_qsl, urlencode, urlsplit
 
 from citus.starlette.concurrency import run_in_threadpool
-from citus.starlette.types import Scope
+
+Scope = typing.MutableMapping[str, typing.Any]
 
 Address = namedtuple("Address", ["host", "port"])
 

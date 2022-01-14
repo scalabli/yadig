@@ -25,4 +25,4 @@ from .routing import APIRouter as APIRouter
 from .websockets import WebSocket as WebSocket
 from .websockets import WebSocketDisconnect as WebSocketDisconnect
 
-__version__ = "2022.1"
+__version__ = "0.0.1"

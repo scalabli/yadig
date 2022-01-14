@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+import citus
 
-app = FastAPI()
+app = citus.App()
 
 
 @app.get("/app")
@@ -8,7 +8,7 @@ def read_main():
     return {"message": "Hello World from main app"}
 
 
-subapi = FastAPI()
+subapi = citus.App()
 
 
 @subapi.get("/sub")

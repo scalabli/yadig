@@ -33,7 +33,20 @@ logo = """
 🄲🄸🅃🅄🅂
 """
 
+description = """
 
+## About
+<img src="/openapi/images/quo.png" alt="MarineGEO circle logo" style="height: 100px; width:100px;"/>
+
+`𝙲𝚒𝚝𝚞𝚜`is a python based, ultrafast web framework  focusing on composing Web APIs all the more rapidly and with needless baggage
+"""
+
+contact = """
+
+{"email":
+   "secretum@googlegroups.com or secretum.inc@pm.me."
+   }
+   """
 class Starlette:
     """
     Creates an application instance.
@@ -63,7 +76,7 @@ class Starlette:
 
     def __init__(
         self,
-        debug: bool = False,
+        debug: bool = True,
         routes: typing.Sequence[BaseRoute] = None,
         middleware: typing.Sequence[Middleware] = None,
         exception_handlers: typing.Mapping[
@@ -235,9 +248,9 @@ class App(Starlette):
         debug: bool = False,
         routes: Optional[List[BaseRoute]] = None,
         title: str = logo,
-        description: str = "",
+        description: str = description,
         version: str = "2022.1",
-        openapi_url: Optional[str] = "/openapi.json",
+        openapi_url: Optional[str] = "/openapi.yaml",
         openapi_tags: Optional[List[Dict[str, Any]]] = None,
         servers: Optional[List[Dict[str, Union[str, Any]]]] = None,
         dependencies: Optional[Sequence[Depends]] = None,
@@ -256,9 +269,12 @@ class App(Starlette):
         on_startup: Optional[Sequence[Callable[[], Any]]] = None,
         on_shutdown: Optional[Sequence[Callable[[], Any]]] = None,
         terms_of_service: Optional[str] = None,
-        contact: Optional[Dict[str, Union[str, Any]]] = None,
-        license_info: Optional[Dict[str, Union[str, Any]]] = None,
-        openapi_prefix: str = "",
+        contact: Optional[Dict[str, Union[str, Any]]] = {
+            "name" : "Citus",
+            "url" : "https://citus.rtfd.io",
+            "email" : "secretum@googlegroups.com",
+            },
+        license_info: Optional[Dict[str, Union[str, Any]]] =None,
         root_path: str = "",
         root_path_in_servers: bool = True,
         responses: Optional[Dict[Union[int, str], Dict[str, Any]]] = None,
@@ -306,15 +322,7 @@ class App(Starlette):
         self.servers = servers or []
         self.openapi_url = openapi_url
         self.openapi_tags = openapi_tags
-        # TODO: remove when discarding the openapi_prefix parameter
-        if openapi_prefix:
-            logger.warning(
-                '"openapi_prefix" has been deprecated in favor of "root_path", which '
-                "follows more closely the ASGI standard, is simpler, and more "
-                "automatic. Check the docs at "
-                "https://fastapi.tiangolo.com/advanced/sub-applications/"
-            )
-        self.root_path = root_path or openapi_prefix
+        self.root_path = root_path
         self.root_path_in_servers = root_path_in_servers
         self.docs_url = docs_url
         self.redoc_url = redoc_url

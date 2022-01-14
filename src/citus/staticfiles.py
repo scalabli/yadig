@@ -5,13 +5,20 @@ import typing
 from email.utils import parsedate
 
 import anyio
-
+from quo.errors import NoSuchApp as StaticFilesError
 from citus.starlette.datastructures import URL, Headers
 from citus.errors import HTTPExceptions as HTTPException
 from citus.starlette.responses import FileResponse, RedirectResponse, Response
-from citus.starlette.types import Receive, Scope, Send
 
 PathLike = typing.Union[str, "os.PathLike[str]"]
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 
 class NotModifiedResponse(Response):
@@ -50,7 +57,7 @@ class StaticFiles:
         self.html = html
         self.config_checked = False
         if check_dir and directory is not None and not os.path.isdir(directory):
-            raise RuntimeError(f"Directory '{directory}' does not exist")
+            raise StaticFilesError(f"Directory '{directory}' does not exist")
 
     def get_directories(
         self, directory: PathLike = None, packages: typing.List[str] = None

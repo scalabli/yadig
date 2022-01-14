@@ -7,7 +7,16 @@ from citus.errors import HTTPExceptions as HTTPException
 from citus.starlette.concurrency import run_in_threadpool
 from citus.requests import Request
 from citus.starlette.responses import PlainTextResponse, Response
-from citus.starlette.types import ASGIApp, Message, Receive, Scope, Send
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typing.Awaitable[None]]
 
 class ExceptionMiddleware:
     def __init__(

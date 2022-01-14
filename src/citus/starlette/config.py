@@ -2,14 +2,11 @@ import os
 import typing
 from collections.abc import MutableMapping
 from pathlib import Path
-
+from quo.errors import NoSuchApp as EnvironError
 
 class undefined:
     pass
 
-
-class EnvironError(Exception):
-    pass
 
 
 class Environ(MutableMapping):

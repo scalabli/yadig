@@ -7,8 +7,16 @@ from citus.starlette.concurrency import run_in_threadpool
 from citus.errors import HTTPExceptions as HTTPException
 from citus.requests import Request
 from citus.starlette.responses import PlainTextResponse, Response
-from citus.starlette.types import Message, Receive, Scope, Send
+
 from citus.websockets import WebSocket
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 
 class HTTPEndpoint:

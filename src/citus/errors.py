@@ -36,6 +36,9 @@ class HTTPException(HTTPExceptions):
 RequestErrorModel: typing.Type[BaseModel] = create_model("Request")
 WebSocketErrorModel: typing.Type[BaseModel] = create_model("WebSocket")
 
+class NoMatchFound(Outlier):
+    """Raised is no matching routes exist"""
+
 
 class RequestValidationError(ValidationError):
     def __init__(

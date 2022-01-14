@@ -6,6 +6,7 @@ import sys
 import typing
 
 import click
+import quo
 import citus
 from asgiref.typing import ASGIApplication
 
@@ -22,6 +23,8 @@ from citus.uvicorn.config import (
     WS_PROTOCOLS,
     Config,
 )
+
+from citus.version_ import main_
 from citus.uvicorn.server import Server, ServerState  # noqa: F401  # Used to be defined here.
 from citus.uvicorn.supervisors import ChangeReload, Multiprocess
 
@@ -32,24 +35,49 @@ LIFESPAN_CHOICES = click.Choice(list(LIFESPAN.keys()))
 LOOP_CHOICES = click.Choice([key for key in LOOP_SETUPS.keys() if key != "none"])
 INTERFACE_CHOICES = click.Choice(INTERFACES)
 
-STARTUP_FAILURE = 3
 
 logger = logging.getLogger("citus.uvicorn.error")
 
 
-def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> None:
-    if not value or ctx.resilient_parsing:
-        return
-    click.echo(
-        "Running citus %s with %s %s on %s"
-        % (
-            citus.__version__,
-            platform.python_implementation(),
-            platform.python_version(),
-            platform.system(),
-        )
-    )
-    ctx.exit()
+def print_version(
+        clime: click.Context, 
+        param: quo.Parameter,
+        value: bool
+        ) -> None:
+    if not value or clime.resilient_parsing:
+
+        return main_()
+
+    clime.exit()
+
+def iii(ctx: click.Context,
+        value: bool
+        ):
+    return main_()
+
+
+
+ #   quo.echo(
+    #    "Running citus %s with %s %s on %s"
+#  *  *    % (
+      #      citus.__version__,
+    #        platform.python_implementation(),
+   #         platform.python_version(),
+    #        platform.system(),
+    #    )
+  #  )
+  #  clime.exit()
+
+@quo.command(context_settings={"auto_envar_prefix": "CITUS"})
+@quo.app("--ersion",
+        is_flag=True,
+        callback=print_version,
+        expose_value=False,
+        is_eager=True,
+        help="Display citus version and exit.",                )
+def vers(ersion):
+    quo.echo(" ")
+
 
 
 @click.command(context_settings={"auto_envvar_prefix": "UVICORN"})
@@ -315,7 +343,7 @@ def print_version(ctx: click.Context, param: click.Parameter, value: bool) -> No
 @click.option(
     "--version",
     is_flag=True,
-    callback=print_version,
+    callback=iii,
     expose_value=False,
     is_eager=True,
     help="Display citus version and exit.",
@@ -442,7 +470,7 @@ def run(app: typing.Union[ASGIApplication, str], **kwargs: typing.Any) -> None:
             "You must pass the application as an import string to enable 'reload' or "
             "'workers'."
         )
-        sys.exit(1)
+        quo.exit(1)
 
     if config.should_reload:
         sock = config.bind_socket()
@@ -456,8 +484,9 @@ def run(app: typing.Union[ASGIApplication, str], **kwargs: typing.Any) -> None:
         os.remove(config.uds)  # pragma: py-win32
 
     if not server.started and not config.should_reload and config.workers == 1:
-        sys.exit(STARTUP_FAILURE)
+        quo.exit(3) #  #3 is Startup failure
 
 
 if __name__ == "__main__":
+    vers()
     main()  # pragma: no cover

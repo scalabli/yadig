@@ -6,10 +6,10 @@ from citus.starlette.datastructures import FormData, Headers, UploadFile
 
 try:
     import multiparse
-    from multiparse.multipart import parse_options_header
+    from multiparse import parse_options_header
 except ImportError:  # pragma: nocover
     parse_options_header = None
-    multipart = None
+    multiparse = None
 
 
 class FormMessage(Enum):
@@ -115,8 +115,8 @@ class MultiPartParser:
         self, headers: Headers, stream: typing.AsyncGenerator[bytes, None]
     ) -> None:
         assert (
-            multipart is not None
-        ), "The `python-multipart` library must be installed to use form parsing."
+            multiparse is not None
+        ), "The `multiparse` module must be installed to use form parsing."
         self.headers = headers
         self.stream = stream
         self.messages: typing.List[typing.Tuple[MultiPartMessage, bytes]] = []
@@ -174,7 +174,7 @@ class MultiPartParser:
         }
 
         # Create the parser.
-        parser = multipart.MultipartParser(boundary, callbacks)
+        parser = multiparse.MultipartParser(boundary, callbacks)
         header_field = b""
         header_value = b""
         content_disposition = None
