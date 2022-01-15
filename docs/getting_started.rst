@@ -137,7 +137,8 @@ It will show a JSON starting with something like:
 
 
 
-#### What is OpenAPI for
+What is OpenAPI for? 
+---------------------
 
 The OpenAPI schema is what powers the two interactive documentation systems included.
 
@@ -147,18 +148,12 @@ You could also use it to generate code automatically, for clients that communica
 
 ## Recap, step by step
 
-### Step 1: import `FastAPI`
+Step 1: import `Citus`
+----------------------
 
 ```Python hl_lines="1"
 {!../../../docs_src/first_steps/tutorial001.py!}
 ```
-
-`FastAPI` is a Python class that provides all the functionality for your API.
-
-!!! note "Technical Details"
-    `FastAPI` is a class that inherits directly from `Starlette`.
-
-    You can use all the <a href="https://www.starlette.io/" class="external-link" target="_blank">Starlette</a> functionality with `FastAPI` too.
 
 ### Step 2: create a `FastAPI` "instance"
 
@@ -202,23 +197,26 @@ $ uvicorn main:my_awesome_api --reload
 
 ### Step 3: create a *path operation*
 
-#### Path
+Path
+------
 
-"Path" here refers to the last part of the URL starting from the first `/`.
+
+`Path` here refers to the last part of the URL starting from the first `/`.
 
 So, in a URL like:
 
-```
-https://example.com/items/foo
-```
+.. code:: console
+
+  https://example.com/items/foo
 
 ...the path would be:
 
-```
-/items/foo
-```
+.. code:: console
 
-!!! info
+  /items/foo
+
+.. note::
+
     A "path" is also commonly called an "endpoint" or a "route".
 
 While building an API, the "path" is the main way to separate "concerns" and "resources".
