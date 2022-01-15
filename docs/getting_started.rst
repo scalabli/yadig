@@ -228,6 +228,10 @@ Operation
 `Operation` refers to one of the HTTP "methods".
 The primary HTTP methods are `POST`, `GET`, `PUT`, `PATCH`, and `DELETE`. These correspond to create, read, update, and delete (or CRUD) operations, 
 
+.. note::
+
+  CRUD is an acronym that refers to the four functions that are considered necessary to implement a persistent storage application: create, read, update and delete.
+
 One of:
 
 *  `POST`
@@ -239,18 +243,6 @@ One of:
 *  `PATCH`
 *  `TRACE`
 
-In the HTTP protocol, you can communicate to each path using one (or more) of these "methods".
-
----
-
-When building APIs, you normally use these specific HTTP methods to perform a specific action.
-
-Normally you use:
-
-* `POST`: to create data.
-* `GET`: to read data.
-* `PUT`: to update data.
-* `DELETE`: to delete data.
 
 So, in OpenAPI, each of the HTTP methods is called an "operation".
 
