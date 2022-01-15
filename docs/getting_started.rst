@@ -221,8 +221,8 @@ So, in a URL like:
 
 While building an API, the "path" is the main way to separate "concerns" and "resources".
 
-Operation
------------
+Methods
+----------
 
 
 `Operation` refers to one of the HTTP "methods".
@@ -239,18 +239,16 @@ There are a number of other methods, but are utilized less frequently.
 *  `TRACE`
 
 
-We are going to call them "**operations**" too.
-
-#### Define a *path operation decorator*
+Define a *path operation decorator*
+------------------------------------
 
 ```Python hl_lines="6"
 {!../../../docs_src/first_steps/tutorial001.py!}
 ```
 
-The `@app.GET("/")` tells **FastAPI** that the function right below is in charge of handling requests that go to:
+The `@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to:
 
 * the path `/`
-* using a <abbr title="an HTTP GET method"><code>get</code> operation</abbr>
 
 !!! info "`@decorator` Info"
     That `@something` syntax in Python is called a "decorator".
