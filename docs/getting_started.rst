@@ -116,7 +116,7 @@ You can see it directly at: http://127.0.0.1:8000/openapi.yml
 
 It will show a JSON starting with something like:
 
-.. code:: yml
+.. code:: yaml
 {
     "openapi": "3.0.2",
     "info": {
@@ -245,18 +245,11 @@ You can also use the other operations:
 * `@app.PUT()`
 * `@app.DELETE()`
 
-And the more exotic ones:
 
-* `@app.OPTIONS()`
-* `@app.HEAD()`
-* `@app.P()`
-* `@app.trace()`
-
-
-Define the **path operation function**
+Defining the **path HTTP method function**
 ---------------------------------------
 
-This is our "**path operation function**":
+This is our "**path HTTP method function**":
 
 * **path**: is `/`.
 * **http method**: is `GET`.
