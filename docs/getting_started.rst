@@ -201,6 +201,7 @@ Path
 ------
 
 The path resides after the hostname and is separated by “/” (forward slash).
+A path can comprise of any asset file extension, like `.jpg`, `.pdf` etc
 
 So, in a URL like:
 
