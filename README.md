@@ -8,7 +8,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/gerrishon_s.svg?style=social)](https://twitter.com/gerrishon_s)
 
 
-[![Logo](https://raw.githubusercontent.com/secretum-inc/citus/main/pics/citus.png)](https://github.com/secretum-inc/citus)
+[![Logo](https://raw.githubusercontent.com/secretum-inc/citus/main/docs/images/citus.png)](https://github.com/secretum-inc/citus)
 
 
 `Forever Scalable`
