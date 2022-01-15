@@ -10,9 +10,9 @@ The simplest Citus file could look like this:
   app = citus.App()
 
 
-  @app.init("/")
+  @app.get("/")
   async def root():
-      return {"message": "Hello World"}
+      return "greet: Hello World"
 
 
 Copy that to a file `main.py`.
@@ -23,14 +23,15 @@ Run the live server:
   
    $ citus main:app --reload
 
-<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-<span style="color: green;">INFO</span>:     Started reloader process [28720]
-<span style="color: green;">INFO</span>:     Started server process [28722]
-<span style="color: green;">INFO</span>:     Waiting for application startup.
-<span style="color: green;">INFO</span>:     Application startup complete.
-```
+.. code:: html
 
-</div>
+  <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+  <span style="color: green;">INFO</span>:     Started reloader process [28720]
+  <span style="color: green;">INFO</span>:     Started server process [28722]
+  <span style="color: green;">INFO</span>:     Waiting for application startup.
+  <span style="color: green;">INFO</span>:     Application startup complete.
+
+  </div>
 
 .. note::
 
