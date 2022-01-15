@@ -239,7 +239,7 @@ There are a number of other methods, but are utilized less frequently.
 Defining a *path HTTP method decorator*
 ---------------------------------------
 
-:class:`@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to the path `/`
+:func:`@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to the path `/`
 
 You can also use the other operations:
 
@@ -261,12 +261,8 @@ Define the **path operation function**
 This is our "**path operation function**":
 
 * **path**: is `/`.
-* **operation**: is `get`.
+* **http method **: is `G`.
 * **function**: is the function below the "decorator" (below `@app.get("/")`).
-
-```Python hl_lines="7"
-{!../../../docs_src/first_steps/tutorial001.py!}
-```
 
 This is a Python function.
 
