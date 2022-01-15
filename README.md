@@ -194,3 +194,34 @@ You will see the automatic interactive API documentation (provided by <a href="h
 
 ![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
 
+
+## Getting Help
+
+### Community
+
+For discussions about the usage, development, and the future of quo, please join our Google community
+
+* [Community👨‍👩‍👦‍👦](https://groups.google.com/forum/#!forum/secretum)
+
+## Resources
+
+### Bug tracker
+
+If you have any suggestions, bug reports, or annoyances please report them
+to our issue tracker at 
+[Bug tracker](https://github.com/secretum-inc/citus/issues/) or send an email to:
+
+ 📥 secretum@googlegroups.com
+
+
+## License📑
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+This software is licensed under the `MIT License`. See the [License](https://github.com/secretum-inc/citus/blob/main/LICENSE) file in the top distribution directory for the full license text.
+
+
+## Code of Conduct
+Code of Conduct is adapted from the Contributor Covenant,
+version 1.2.0 available at
+[Code of Conduct](http://contributor-covenant.org/version/1/2/0/)
+
