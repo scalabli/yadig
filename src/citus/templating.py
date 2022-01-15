@@ -3,7 +3,16 @@ from os import PathLike
 
 from starlette.background import BackgroundTask
 from starlette.responses import Response
-from starlette.types import Receive, Scope, Send
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
 
 try:
     import jinja2

@@ -27,7 +27,17 @@ from citus.middleware.errors import ServerErrorMiddleware
 from citus.requests import Request
 from citus.starlette.responses import HTMLResponse, JSONResponse, Response
 from citus.starlette.routing import BaseRoute, Router
-from citus.starlette.types import ASGIApp, Receive, Scope, Send
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typing.Awaitable[None]]
 
 logo = """
 🄲🄸🅃🅄🅂

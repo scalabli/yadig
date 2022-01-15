@@ -3,8 +3,15 @@ import json
 import typing
 
 from citus.requests import HTTPConnection
-from citus.starlette.types import Message, Receive, Scope, Send
 
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 class WebSocketState(enum.Enum):
     CONNECTING = 0

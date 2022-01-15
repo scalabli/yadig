@@ -7,7 +7,15 @@ import anyio
 
 from citus.starlette.datastructures import URL, Address, FormData, Headers, QueryParams, State
 from citus.starlette.formparsers import FormParser, MultiPartParser
-from citus.starlette.types import Message, Receive, Scope, Send
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 try:
     from multiparse.multipart import parse_options_header

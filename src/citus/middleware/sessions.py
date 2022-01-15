@@ -7,8 +7,18 @@ from itsdangerous.exc import BadSignature
 
 from citus.starlette.datastructures import MutableHeaders, Secret
 from citus.requests import HTTPConnection
-from citus.starlette.types import ASGIApp, Message, Receive, Scope, Send
 
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typi
+ng.Awaitable[None]]
 
 class SessionMiddleware:
     def __init__(

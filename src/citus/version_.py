@@ -24,8 +24,7 @@ c_v = "citus.__version__"
 root_container = quo.widgets.Box(
     quo.widgets.Frame(
         quo.widgets.TextArea(
-            text=quo.inscribe(quo.text.HTML(f'Running <reverse>Citus</reverse> version <red>d</red>')),
-            #f"Running Citus version {__version__} with {platform.python_implementation()}\n Press control-c to quit.",
+            text=f"Running Citus version {__version__} with {platform.python_implementation()}\n Press control-c to quit.",
             width=40,
             height=10,
         )

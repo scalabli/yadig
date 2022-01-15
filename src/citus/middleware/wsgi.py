@@ -5,7 +5,13 @@ import typing
 
 import anyio
 
-from citus.starlette.types import Receive, Scope, Send
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]                                                    
+Send = typing.Callable[[Message], typing.Awaitable[None]]
 
 
 def build_environ(scope: Scope, body: bytes) -> dict:

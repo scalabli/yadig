@@ -1,6 +1,18 @@
 from citus.starlette.datastructures import URL
 from citus.starlette.responses import RedirectResponse
-from citus.starlette.types import ASGIApp, Receive, Scope, Send
+
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typi
+ng.Awaitable[None]]
 
 
 class HTTPSRedirectMiddleware:

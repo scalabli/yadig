@@ -2,7 +2,17 @@ import typing
 
 from citus.starlette.datastructures import URL, Headers
 from citus.starlette.responses import PlainTextResponse, RedirectResponse, Response
-from citus.starlette.types import ASGIApp, Receive, Scope, Send
+
+Scope = typing.MutableMapping[str, typing.Any]
+
+Message = typing.MutableMapping[str, typing.Any]
+
+Receive = typing.Callable[[], typing.Awaitable[Message
+]]
+
+Send = typing.Callable[[Message], typing.Awaitable[None]]
+
+ASGIApp = typing.Callable[[Scope, Receive, Send], typing.Awaitable[None]]
 
 ENFORCE_DOMAIN_WILDCARD = "Domain wildcard patterns must be like '*.example.com'."
 

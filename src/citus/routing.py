@@ -6,10 +6,12 @@ import inspect
 import json
 from typing import (
     Any,
+    Awaitable,
     Callable,
     Coroutine,
     Dict,
     List,
+    MutableMapping,
     Optional,
     Sequence,
     Set,
@@ -53,9 +55,19 @@ from citus.starlette.routing import (
     websocket_session,
 )
 from citus.starlette.status import WS_1008_POLICY_VIOLATION
-from citus.starlette.types import ASGIApp
+
 from citus.websockets import WebSocket
 
+
+Scope = MutableMapping[str, Any]
+
+Message = MutableMapping[str, Any]
+
+Receive = Callable[[], Awaitable[Message]]
+
+Send = Callable[[Message], Awaitable[None]]
+
+ASGIApp = Callable[[Scope, Receive, Send], Awaitable[None]]
 
 def _prepare_response_content(
     res: Any,
