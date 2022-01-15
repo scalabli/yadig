@@ -224,7 +224,9 @@ While building an API, the "path" is the main way to separate "concerns" and "re
 Operation
 -----------
 
+
 `Operation` refers to one of the HTTP "methods".
+The primary HTTP methods are `POST`, `GET`, `PUT`, `PATCH`, and `DELETE`. These correspond to create, read, update, and delete (or CRUD) operations, 
 
 One of:
 
