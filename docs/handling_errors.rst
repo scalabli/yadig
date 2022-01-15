@@ -36,10 +36,10 @@ To return HTTP responses with errors to the client you use `HTTPException`.
   items = {"foo": "The Foo Wrestlers"}
 
 
-  @app.init("/items/{item_id}")
+  @app.GET("/items/{item_id}")
   async def read_item(item_id: str):
       if item_id not in items:
-          raise citus.HTTPException(status_code=404, detail="Item not found")
+          raise citus.HTTPException(code=404, message="Item not found")
       return {"item": items[item_id]}
 
 
