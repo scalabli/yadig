@@ -221,11 +221,8 @@ So, in a URL like:
 
 While building an API, the "path" is the main way to separate "concerns" and "resources".
 
-Methods
-----------
-
-
-`Operation` refers to one of the HTTP "methods".
+HTTP Methods
+------------
 The primary HTTP methods are `POST`, `GET`, `PUT`, `PATCH`, and `DELETE`. These correspond to create, read, update, and delete (or CRUD) operations, 
 
 .. note::
@@ -239,12 +236,8 @@ There are a number of other methods, but are utilized less frequently.
 *  `TRACE`
 
 
-Define a *path operation decorator*
-------------------------------------
-
-```Python hl_lines="6"
-{!../../../docs_src/first_steps/tutorial001.py!}
-```
+Defining a *path HTTP method decorator*
+---------------------------------------
 
 The `@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to:
 
