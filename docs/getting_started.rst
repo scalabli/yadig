@@ -250,40 +250,22 @@ The `@app.GET("/")` tells **Citus** that the function right below is in charge o
 
 * the path `/`
 
-!!! info "`@decorator` Info"
-    That `@something` syntax in Python is called a "decorator".
-
-    You put it on top of a function. Like a pretty decorative hat (I guess that's where the term came from).
-
-    A "decorator" takes the function below and does something with it.
-
-    In our case, this decorator tells **FastAPI** that the function below corresponds to the **path** `/` with an **operation** `get`.
-
-    It is the "**path operation decorator**".
-
 You can also use the other operations:
 
-* `@app.post()`
-* `@app.put()`
-* `@app.delete()`
+* `@app.POST()`
+* `@app.PUT()`
+* `@app.DELETE()`
 
 And the more exotic ones:
 
-* `@app.options()`
-* `@app.head()`
-* `@app.patch()`
+* `@app.OPTIONS()`
+* `@app.HEAD()`
+* `@app.P()`
 * `@app.trace()`
 
-!!! tip
-    You are free to use each operation (HTTP method) as you wish.
 
-    **FastAPI** doesn't enforce any specific meaning.
-
-    The information here is presented as a guideline, not a requirement.
-
-    For example, when using GraphQL you normally perform all the actions using only `POST` operations.
-
-### Step 4: define the **path operation function**
+Define the **path operation function**
+---------------------------------------
 
 This is our "**path operation function**":
 
@@ -324,10 +306,3 @@ You can also return Pydantic models (you'll see more about that later).
 
 There are many other objects and models that will be automatically converted to JSON (including ORMs, etc). Try using your favorite ones, it's highly probable that they are already supported.
 
-## Recap
-
-* Import `FastAPI`.
-* Create an `app` instance.
-* Write a **path operation decorator** (like `@app.get("/")`).
-* Write a **path operation function** (like `def root(): ...` above).
-* Run the development server (like `uvicorn main:app --reload`).
