@@ -239,7 +239,7 @@ There are a number of other methods, but are utilized less frequently.
 Defining a *path HTTP method decorator*
 ---------------------------------------
 
-The `@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to:
+The :func:`@app.GET("/")` tells **Citus** that the function right below is in charge of handling requests that go to:
 
 * the path `/`
 
