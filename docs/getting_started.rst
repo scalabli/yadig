@@ -221,23 +221,21 @@ So, in a URL like:
 
 While building an API, the "path" is the main way to separate "concerns" and "resources".
 
-#### Operation
+Operation
+-----------
 
-"Operation" here refers to one of the HTTP "methods".
+`Operation` refers to one of the HTTP "methods".
 
 One of:
 
-* `POST`
-* `GET`
-* `PUT`
-* `DELETE`
-
-...and the more exotic ones:
-
-* `OPTIONS`
-* `HEAD`
-* `PATCH`
-* `TRACE`
+*  `POST`
+*  `GET`
+*  `PUT`
+*  `DELETE`
+*  `OPTIONS`
+*  `HEAD`
+*  `PATCH`
+*  `TRACE`
 
 In the HTTP protocol, you can communicate to each path using one (or more) of these "methods".
 
