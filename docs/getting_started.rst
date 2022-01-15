@@ -95,25 +95,28 @@ In this case, https://github.com/OAI/OpenAPI-Specification is a specification th
 
 This schema definition includes your API paths, the possible parameters they take, etc.
 
-#### Data "schema"
+Data "schema"
+--------------
 
 The term "schema" might also refer to the shape of some data, like a JSON content.
 
 In that case, it would mean the JSON attributes, and data types they have, etc.
 
-#### OpenAPI and JSON Schema
+OpenAPI and JSON Schema
+--------------------------
 
 OpenAPI defines an API schema for your API. And that schema includes definitions (or "schemas") of the data sent and received by your API using **JSON Schema**, the standard for JSON data schemas.
 
-#### Check the `openapi.json`
+Check the `openapi.yml`
+------------------------------
 
-If you are curious about how the raw OpenAPI schema looks like, FastAPI automatically generates a JSON (schema) with the descriptions of all your API.
+If you are curious about how the raw OpenAPI schema looks like, Citus automatically generates a yaml (schema) with the descriptions of all your API.
 
-You can see it directly at: <a href="http://127.0.0.1:8000/openapi.json" class="external-link" target="_blank">http://127.0.0.1:8000/openapi.json</a>.
+You can see it directly at: http://127.0.0.1:8000/openapi.yml
 
 It will show a JSON starting with something like:
 
-.. code:: JSON
+.. code:: yml
 {
     "openapi": "3.0.2",
     "info": {
