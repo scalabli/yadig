@@ -10,7 +10,7 @@ The simplest Citus file could look like this:
   app = citus.App()
 
 
-  @app.get("/")
+  @app.GET("/")
   async def root():
       return "Hello World"
 
@@ -195,8 +195,6 @@ $ uvicorn main:my_awesome_api --reload
 
 </div>
 
-### Step 3: create a *path operation*
-
 Path
 ------
 
@@ -261,7 +259,7 @@ Define the **path operation function**
 This is our "**path operation function**":
 
 * **path**: is `/`.
-* **http method **: is `G`.
+* **http method**: is `GET`.
 * **function**: is the function below the "decorator" (below `@app.get("/")`).
 
 This is a Python function.
@@ -281,13 +279,10 @@ You could also define it as a normal function instead of `async def`:
 !!! note
     If you don't know the difference, check the [Async: *"In a hurry?"*](../async.md#in-a-hurry){.internal-link target=_blank}.
 
-### Step 5: return the content
+turn the content
 
-```Python hl_lines="8"
-{!../../../docs_src/first_steps/tutorial001.py!}
-```
 
-You can return a `dict`, `list`, singular values as `str`, `int`, etc.
+You can return a `str`, `list`, singular values as `dict`, `int`, `float` etc.
 
 You can also return Pydantic models (you'll see more about that later).
 
