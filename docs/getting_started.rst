@@ -200,8 +200,7 @@ $ uvicorn main:my_awesome_api --reload
 Path
 ------
 
-
-`Path` here refers to the last part of the URL starting from the first `/`.
+The path resides after the hostname and is separated by “/” (forward slash).
 
 So, in a URL like:
 
