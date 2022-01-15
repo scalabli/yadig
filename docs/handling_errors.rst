@@ -44,7 +44,8 @@ To return HTTP responses with errors to the client you use `HTTPException`.
 
 
 
-### Raise an `HTTPException` in your code
+Raise an `HTTPException` in your code
+--------------------------------------
 
 `HTTPException` is a normal Python exception with additional data relevant for APIs.
 
