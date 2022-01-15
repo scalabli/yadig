@@ -232,19 +232,12 @@ The primary HTTP methods are `POST`, `GET`, `PUT`, `PATCH`, and `DELETE`. These 
 
   CRUD is an acronym that refers to the four functions that are considered necessary to implement a persistent storage application: create, read, update and delete.
 
-One of:
+There are a number of other methods, but are utilized less frequently.
 
-*  `POST`
-*  `GET`
-*  `PUT`
-*  `DELETE`
 *  `OPTIONS`
 *  `HEAD`
-*  `PATCH`
 *  `TRACE`
 
-
-So, in OpenAPI, each of the HTTP methods is called an "operation".
 
 We are going to call them "**operations**" too.
 
@@ -254,7 +247,7 @@ We are going to call them "**operations**" too.
 {!../../../docs_src/first_steps/tutorial001.py!}
 ```
 
-The `@app.get("/")` tells **FastAPI** that the function right below is in charge of handling requests that go to:
+The `@app.GET("/")` tells **FastAPI** that the function right below is in charge of handling requests that go to:
 
 * the path `/`
 * using a <abbr title="an HTTP GET method"><code>get</code> operation</abbr>
