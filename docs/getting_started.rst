@@ -12,7 +12,7 @@ The simplest Citus file could look like this:
 
   @app.get("/")
   async def root():
-      return "greet: Hello World"
+      return "Hello World"
 
 
 Copy that to a file `main.py`.
@@ -25,39 +25,40 @@ Run the live server:
 
 .. code:: html
 
-  <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-  <span style="color: green;">INFO</span>:     Started reloader process [28720]
-  <span style="color: green;">INFO</span>:     Started server process [28722]
-  <span style="color: green;">INFO</span>:     Waiting for application startup.
-  <span style="color: green;">INFO</span>:     Application startup complete.
+  INFO:     Citus is running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+  INFO:     Started reloader process [28720]
+  INFO:     Started server process [28722]
+  INFO:     Waiting for application startup.
+  INFO:     Application startup complete.
 
-  </div>
+
 
 .. note::
 
     The command `citus main:app` refers to:
 
     * `main`: the file `main.py` (the Python "module").
-    * `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
-    * `--reload`: make the server restart after code changes. Only use for development.
+    * `app`: the object created inside of `main.py` with the line `app = quo.App()`.
+    * `--reload` or `-r`: make the server restart after code changes. Only use for development.
 
 In the output, there's a line with something like:
 
 .. code:: console
 
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Citus is running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 
 That line shows the URL where your app is being served, in your local machine.
 
-### Check it
+Check it
+--------
 
-Open your browser at <a href="http://127.0.0.1:8000" class="external-link" target="_blank">http://127.0.0.1:8000</a>.
+Open your browser at http://127.0.0.1:8000
 
 You will see the JSON response as:
 
-.. code:: JSON
+.. code:: console
 
-{"message": "Hello World"}
+  "Hello World"
 
 Interactive API docs
 ---------------------
@@ -80,16 +81,17 @@ You will see the alternative automatic documentation (provided by <a href="https
 OpenAPI
 --------
 
-**FastAPI** generates a "schema" with all your API using the **OpenAPI** standard for defining APIs.
+**Citus** generates a "schema" with all your API using the **OpenAPI** standard for defining APIs.
 
 Schema
 -------
 
 A "schema" is a definition or description of something. Not the code that implements it, but just an abstract description.
 
-#### API "schema"
+API "schema"
+------------
 
-In this case, <a href="https://github.com/OAI/OpenAPI-Specification" class="external-link" target="_blank">OpenAPI</a> is a specification that dictates how to define a schema of your API.
+In this case, https://github.com/OAI/OpenAPI-Specification is a specification that dictates how to define a schema of your API.
 
 This schema definition includes your API paths, the possible parameters they take, etc.
 
