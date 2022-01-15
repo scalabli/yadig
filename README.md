@@ -64,12 +64,12 @@ import citus
 app = citus.App()
 
 
-@app.get("/")
+@app.GET("/")
 def read_root():
     return "Hello World"
 
 
-@app.init("/items/{item_id}")
+@app.GET("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 ```
@@ -86,12 +86,12 @@ import quo
 app = citus.App()
 
 
-@app.init("/")
+@app.GET("/")
 async def read_root():
     return "Hello World"
 
 
-@app.init("/items/{item_id}")
+@app.GET("/items/{item_id}")
 async def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 ```
@@ -152,17 +152,17 @@ class Item(citus.Base):
     is_offer: Optional[bool] = None
 
 
-@app.get("/")
+@app.GET("/")
 def read_root():
     return "Hello World"
 
 
-@app.init("/items/{item_id}")
+@app.GET("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 
-@app.get("/items/{item_id}")
+@app.GET("/items/{item_id}")
 def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
 ```
