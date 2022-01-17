@@ -163,7 +163,7 @@ latex_documents = [(master_doc, 'ParlAI.tex', 'ParlAI Documentation', 'FAIR', 'm
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, 'parlai', 'ParlAI Documentation', [author], 1)]
+man_pages = [(master_doc, 'citus', 'ParlAI Documentation', [author], 1)]
 
 typehints_fully_qualified = False
 
@@ -176,7 +176,7 @@ typehints_fully_qualified = False
 texinfo_documents = [
     (
         master_doc,
-        'ParlAI',
+        'Citus',
         'ParlAI Documentation',
         author,
         'ParlAI',
@@ -207,8 +207,8 @@ def linkcode_resolve(domain, info):
     if domain != 'py' or not info['module']:
         return None
     try:
-        filename = 'parlai/%s#L%d-L%d' % find_source()
+        filename = 'citus/%s#L%d-L%d' % find_source()
         tag = git.Git().rev_parse('HEAD')
-        return "https://github.com/facebookresearch/ParlAI/blob/%s/%s" % (tag, filename)
+        return "https://github.com/secretum-inc/citus/blob/%s/%s" % (tag, filename)
     except Exception:
         return None
