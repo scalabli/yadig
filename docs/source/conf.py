@@ -119,7 +119,7 @@ html_theme_options = {'collapse_navigation': False, 'logo_only': True}
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_css_files = ['css/parlai_theme.css']
+html_css_files = ['/_static/css/citus_theme.css']
 html_logo = '_static/img/parlai.png'
 
 # myst options
