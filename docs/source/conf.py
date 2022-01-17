@@ -36,7 +36,6 @@
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 import sys
-import git
 import sphinx_rtd_theme
 import citus
 
@@ -205,10 +204,4 @@ def linkcode_resolve(domain, info):
         return fn, lineno, lineno + len(source) - 1
 
     if domain != 'py' or not info['module']:
-        return None
-    try:
-        filename = 'citus/%s#L%d-L%d' % find_source()
-        tag = git.Git().rev_parse('HEAD')
-        return "https://github.com/secretum-inc/citus/blob/%s/%s" % (tag, filename)
-    except Exception:
         return None
