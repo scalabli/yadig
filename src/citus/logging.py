@@ -50,7 +50,7 @@ default_handler.setFormatter(
 )
 
 
-def create_logger(app: "Flask") -> logging.Logger:
+def create_logger(app: "API") -> logging.Logger:
     """Get the Flask app's logger and configure it if needed.
 
     The logger name will be the same as

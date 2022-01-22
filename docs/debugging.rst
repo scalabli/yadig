@@ -1,112 +1,133 @@
-# Debugging
+Debugging Application Errors
+============================
 
-You can connect the debugger in your editor, for example with Visual Studio Code or PyCharm.
 
-## Call `uvicorn`
+In Production
+-------------
 
-In your FastAPI application, import and run `uvicorn` directly:
+**Do not run the development server, or enable the built-in debugger, in
+a production environment.** The debugger allows executing arbitrary
+Python code from the browser. It's protected by a pin, but that should
+not be relied on for security.
 
-```Python hl_lines="1  15"
-{!../../../docs_src/debugging/tutorial001.py!}
-```
+Use an error logging tool, such as Sentry, as described in
+:ref:`error-logging-tools`, or enable logging and notifications as
+described in :doc:`/logging`.
 
-### About `__name__ == "__main__"`
+If you have access to the server, you could add some code to start an
+external debugger if ``request.remote_addr`` matches your IP. Some IDE
+debuggers also have a remote mode so breakpoints on the server can be
+interacted with locally. Only enable a debugger temporarily.
 
-The main purpose of the `__name__ == "__main__"` is to have some code that is executed when your file is called with:
 
-<div class="termy">
+The Built-In Debugger
+---------------------
 
-```console
-$ python myapp.py
-```
+The built-in Werkzeug development server provides a debugger which shows
+an interactive traceback in the browser when an unhandled error occurs
+during a request. This debugger should only be used during development.
 
-</div>
+.. image:: _static/debugger.png
+   :align: center
+   :class: screenshot
+   :alt: screenshot of debugger in action
 
-but is not called when another file imports it, like in:
+.. warning::
 
-```Python
-from myapp import app
-```
+    The debugger allows executing arbitrary Python code from the
+    browser. It is protected by a pin, but still represents a major
+    security risk. Do not run the development server or debugger in a
+    production environment.
 
-#### More details
+To enable the debugger, run the development server with the
+``FLASK_ENV`` environment variable set to ``development``. This puts
+Flask in debug mode, which changes how it handles some errors, and
+enables the debugger and reloader.
 
-Let's say your file is named `myapp.py`.
+.. tabs::
 
-If you run it with:
+   .. group-tab:: Bash
 
-<div class="termy">
+      .. code-block:: text
 
-```console
-$ python myapp.py
-```
+         $ export FLASK_ENV=development
+         $ flask run
 
-</div>
+   .. group-tab:: CMD
 
-then the internal variable `__name__` in your file, created automatically by Python, will have as value the string `"__main__"`.
+      .. code-block:: text
 
-So, the section:
+         > set FLASK_ENV=development
+         > flask run
 
-```Python
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-```
+   .. group-tab:: Powershell
 
-will run.
+      .. code-block:: text
 
----
+         > $env:FLASK_ENV = "development"
+         > flask run
 
-This won't happen if you import that module (file).
+``FLASK_ENV`` can only be set as an environment variable. When running
+from Python code, passing ``debug=True`` enables debug mode, which is
+mostly equivalent. Debug mode can be controlled separately from
+``FLASK_ENV`` with the ``FLASK_DEBUG`` environment variable as well.
 
-So, if you have another file `importer.py` with:
+.. code-block:: python
 
-```Python
-from myapp import app
+    app.run(debug=True)
 
-# Some more code
-```
+:doc:`/server` and :doc:`/cli` have more information about running the
+debugger, debug mode, and development mode. More information about the
+debugger can be found in the `Werkzeug documentation
+<https://werkzeug.palletsprojects.com/debug/>`__.
 
-in that case, the automatic variable inside of `myapp.py` will not have the variable `__name__` with a value of `"__main__"`.
 
-So, the line:
+External Debuggers
+------------------
 
-```Python
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-```
+External debuggers, such as those provided by IDEs, can offer a more
+powerful debugging experience than the built-in debugger. They can also
+be used to step through code during a request before an error is raised,
+or if no error is raised. Some even have a remote mode so you can debug
+code running on another machine.
 
-will not be executed.
+When using an external debugger, the app should still be in debug mode,
+but it can be useful to disable the built-in debugger and reloader,
+which can interfere.
 
-!!! info
-    For more information, check <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">the official Python docs</a>.
+When running from the command line:
 
-## Run your code with your debugger
+.. tabs::
 
-Because you are running the Uvicorn server directly from your code, you can call your Python program (your FastAPI application) directly from the debugger.
+   .. group-tab:: Bash
 
----
+      .. code-block:: text
 
-For example, in Visual Studio Code, you can:
+         $ export FLASK_ENV=development
+         $ flask run --no-debugger --no-reload
 
-* Go to the "Debug" panel.
-* "Add configuration...".
-* Select "Python"
-* Run the debugger with the option "`Python: Current File (Integrated Terminal)`".
+   .. group-tab:: CMD
 
-It will then start the server with your **FastAPI** code, stop at your breakpoints, etc.
+      .. code-block:: text
 
-Here's how it might look:
+         > set FLASK_ENV=development
+         > flask run --no-debugger --no-reload
 
-<img src="/img/tutorial/debugging/image01.png">
+   .. group-tab:: Powershell
 
----
+      .. code-block:: text
 
-If you use Pycharm, you can:
+         > $env:FLASK_ENV = "development"
+         > flask run --no-debugger --no-reload
 
-* Open the "Run" menu.
-* Select the option "Debug...".
-* Then a context menu shows up.
-* Select the file to debug (in this case, `main.py`).
+When running from Python:
 
-It will then start the server with your **FastAPI** code, stop at your breakpoints, etc.
+.. code-block:: python
 
-Here's how it might look:
+    app.run(debug=True, use_debugger=False, use_reloader=False)
 
-<img src="/img/tutorial/debugging/image02.png">
+Disabling these isn't required, an external debugger will continue to
+work with the following caveats. If the built-in debugger is not
+disabled, it will catch unhandled exceptions before the external
+debugger can. If the reloader is not disabled, it could cause an
+unexpected reload if code changes during debugging.

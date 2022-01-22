@@ -1,79 +1,91 @@
+.. rst-class:: hide-header
 
-..
+Welcome to Flask
+================
 
-.. image:: https://raw.githubusercontent.com/secretum-inc/citus/main/docs/images/citus.png
+.. image:: _static/flask-logo.png
+    :alt: Flask: web development, one drop at a time
+    :align: center
+    :target: https://palletsprojects.com/p/flask/
 
-Citus Documentation
-================================
-:Version: 2022.1
-:Web: http://citus.readthedocs.io/
-:Download: http://pypi.org/project/citus
-:Source: http://github.com/secretum-inc/citus
+Welcome to Flask's documentation. Get started with :doc:`installation`
+and then get an overview with the :doc:`quickstart`. There is also a
+more detailed :doc:`tutorial/index` that shows how to create a small but
+complete application with Flask. Common patterns are described in the
+:doc:`patterns/index` section. The rest of the docs describe each
+component of Flask in detail, with a full reference in the :doc:`api`
+section.
+
+Flask depends on the `Jinja`_ template engine and the `Werkzeug`_ WSGI
+toolkit. The documentation for these libraries can be found at:
+
+- `Jinja documentation <https://jinja.palletsprojects.com/>`_
+- `Werkzeug documentation <https://werkzeug.palletsprojects.com/>`_
+
+.. _Jinja: https://www.palletsprojects.com/p/jinja/
+.. _Werkzeug: https://www.palletsprojects.com/p/werkzeug/
 
 
+User's Guide
+------------
+
+This part of the documentation, which is mostly prose, begins with some
+background information about Flask, then focuses on step-by-step
+instructions for web development with Flask.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-   getting_started.rst
-   background_tasks.rst
-   bigger-applications.rst
-   body.rst
-   body-fields.rst
-   body-multiple-params.rst
-   body-nested-models.rst
-   body-updates.rst
-   cookie-params.rst
-   cors.rst
-   debugging.rst
-   encoders.rst
-   extra-data-types.rst
-   extra-models.rst
-   apps.rst
-   args.rst
-   confirm.rst.
-   printing_text.rst
-   prompt.rst
-   exceptions.rst
-   handling_errors.rst
-   terminal.rst
-   style.rst
-   markup.rst
-   text.rst
-   highlighting.rst
-   pretty.rst
-   logging.rst
-   traceback.rst
+   foreword
+   advanced_foreword
+   installation
+   quickstart
+   tutorial/index
+   templating
+   testing
+   errorhandling
+   debugging
+   logging
+   config
+   signals
+   views
+   appcontext
+   reqcontext
+   blueprints
+   extensions
+   cli
+   server
+   shell
+   patterns/index
+   deploying/index
+   becomingbig
+   async-await
 
-   columns.rst
-   padding.rst
-   panel.rst
-   header-params.rst
-   help_text.rst
-   filters.rst
-   full_screen_apps.rst
-   key_bindings.rst
-   metadata.rst
-   progress_bars.rst
-   syntax.rst
-   styling.rst
-   tables.rst
-   utils.rst
-   tree.rst
 
-   protocol.rst
+API Reference
+-------------
 
-   changes.rst
-   request_forms.rst
-   static_files.rst
-   reference.rst
-   unicode-support.rst
-   appendix.rst
+If you are looking for information on a specific function, class or
+method, this part of the documentation is for you.
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   api
+
+
+Additional Notes
+----------------
+
+Design notes, legal information and changelog are here for the interested.
+
+.. toctree::
+   :maxdepth: 2
+
+   design
+   htmlfaq
+   security
+   extensiondev
+   contributing
+   license
+   changes
