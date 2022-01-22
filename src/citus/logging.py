@@ -1,117 +1,74 @@
-import http
 import logging
 import sys
-from copy import copy
-from typing import Optional
+import typing as t
 
-from quo.i_o import flair
+from werkzeug.local import LocalProxy
 
-TRACE_LOG_LEVEL = 5
-logger = logging.getLogger("citus")
+from .globals import request
 
-class ColourizedFormatter(logging.Formatter):
+if t.TYPE_CHECKING:
+    from .app import API
+
+
+@LocalProxy
+def wsgi_errors_stream() -> t.TextIO:
+    """Find the most appropriate error stream for the application. If a request
+    is active, log to ``wsgi.errors``, otherwise use ``sys.stderr``.
+
+    If you configure your own :class:`logging.StreamHandler`, you may want to
+    use this for the stream. If you are using file or dict configuration and
+    can't import this directly, you can refer to it as
+    ``ext://flask.logging.wsgi_errors_stream``.
     """
-    A custom log formatter class that:
+    return request.environ["wsgi.errors"] if request else sys.stderr
 
-    * Outputs the LOG_LEVEL with an appropriate color.
-    * If a log call includes an `extras={"color_message": ...}` it will be used
-      for formatting the output, instead of the plain text message.
+
+def has_level_handler(logger: logging.Logger) -> bool:
+    """Check if there is a handler in the logging chain that will handle the
+    given logger's :meth:`effective level <~logging.Logger.getEffectiveLevel>`.
     """
+    level = logger.getEffectiveLevel()
+    current = logger
 
-    level_name_colors = {
-        TRACE_LOG_LEVEL: lambda level_name: flair(str(level_name), fg="blue"),
-        logging.DEBUG: lambda level_name: flair(str(level_name), fg="cyan"),
-        logging.INFO: lambda level_name: flair(str(level_name), fg="green"),
-        logging.WARNING: lambda level_name: flair(str(level_name), fg="yellow"),
-        logging.ERROR: lambda level_name: flair(str(level_name), fg="red"),
-        logging.CRITICAL: lambda level_name: flair(
-            str(level_name), fg="vred"
-        ),
-    }
+    while current:
+        if any(handler.level <= level for handler in current.handlers):
+            return True
 
-    def __init__(
-        self,
-        fmt: Optional[str] = None,
-        datefmt: Optional[str] = None,
-        style: str = "%",
-        use_colors: Optional[bool] = None,
-    ):
-        if use_colors in (True, False):
-            self.use_colors = use_colors
-        else:
-            self.use_colors = sys.stdout.isatty()
-        super().__init__(fmt=fmt, datefmt=datefmt, style=style)
+        if not current.propagate:
+            break
 
-    def color_level_name(self, level_name: str, level_no: int) -> str:
-        def default(level_name: str) -> str:
-            return str(level_name)  # pragma: no cover
+        current = current.parent  # type: ignore
 
-        func = self.level_name_colors.get(level_no, default)
-        return func(level_name)
-
-    def should_use_colors(self) -> bool:
-        return True  # pragma: no cover
-
-    def formatMessage(self, record: logging.LogRecord) -> str:
-        recordcopy = copy(record)
-        levelname = recordcopy.levelname
-        seperator = " " * (8 - len(recordcopy.levelname))
-        if self.use_colors:
-            levelname = self.color_level_name(levelname, recordcopy.levelno)
-            if "color_message" in recordcopy.__dict__:
-                recordcopy.msg = recordcopy.__dict__["color_message"]
-                recordcopy.__dict__["message"] = recordcopy.getMessage()
-        recordcopy.__dict__["levelprefix"] = levelname + ":" + seperator
-        return super().formatMessage(recordcopy)
+    return False
 
 
-class DefaultFormatter(ColourizedFormatter):
-    def should_use_colors(self) -> bool:
-        return sys.stderr.isatty()  # pragma: no cover
+#: Log messages to :func:`~flask.logging.wsgi_errors_stream` with the format
+#: ``[%(asctime)s] %(levelname)s in %(module)s: %(message)s``.
+default_handler = logging.StreamHandler(wsgi_errors_stream)  # type: ignore
+default_handler.setFormatter(
+    logging.Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s")
+)
 
 
-class AccessFormatter(ColourizedFormatter):
-    status_code_colours = {
-        1: lambda code: flair(str(code), fg="vwhite"),
-        2: lambda code: flair(str(code), fg="green"),
-        3: lambda code: flair(str(code), fg="yellow"),
-        4: lambda code: flair(str(code), fg="red"),
-        5: lambda code: flair(str(code), fg="vred"),
-    }
+def create_logger(app: "Flask") -> logging.Logger:
+    """Get the Flask app's logger and configure it if needed.
 
-    def get_status_code(self, status_code: int) -> str:
-        try:
-            status_phrase = http.HTTPStatus(status_code).phrase
-        except ValueError:
-            status_phrase = ""
-        status_and_phrase = "%s %s" % (status_code, status_phrase)
-        if self.use_colors:
+    The logger name will be the same as
+    :attr:`app.import_name <flask.Flask.name>`.
 
-            def default(code: int) -> str:
-                return status_and_phrase  # pragma: no cover
+    When :attr:`~flask.Flask.debug` is enabled, set the logger level to
+    :data:`logging.DEBUG` if it is not set.
 
-            func = self.status_code_colours.get(status_code // 100, default)
-            return func(status_and_phrase)
-        return status_and_phrase
+    If there is no handler for the logger's effective level, add a
+    :class:`~logging.StreamHandler` for
+    :func:`~flask.logging.wsgi_errors_stream` with a basic format.
+    """
+    logger = logging.getLogger(app.name)
 
-    def formatMessage(self, record: logging.LogRecord) -> str:
-        recordcopy = copy(record)
-        (
-            client_addr,
-            method,
-            full_path,
-            http_version,
-            status_code,
-        ) = recordcopy.args
-        status_code = self.get_status_code(int(status_code))
-        request_line = "%s %s HTTP/%s" % (method, full_path, http_version)
-        if self.use_colors:
-            request_line = click.style(request_line, bold=True)
-        recordcopy.__dict__.update(
-            {
-                "client_addr": client_addr,
-                "request_line": request_line,
-                "status_code": status_code,
-            }
-        )
-        return super().formatMessage(recordcopy)
+    if app.debug and not logger.level:
+        logger.setLevel(logging.DEBUG)
+
+    if not has_level_handler(logger):
+        logger.addHandler(default_handler)
+
+    return logger

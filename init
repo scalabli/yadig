@@ -1,0 +1,29 @@
+Citus scripts not found
+
+Usage: citus [💬ᕼᕮしᑭ ᖘᗩᎶᕮ] COMMAND [ARGS]...
+
+  A general utility script for Citus
+  applications.
+
+  Provides commands from Citus, extensions, and
+  the application. Loads the application defined
+  in the CITUS_APP environment variable, or from
+  a wsgi.py file. Setting the CITUS_ENV
+  environment variable to 'development' will
+  enable debug mode.
+
+    $ export CITUS_APP=hello.py
+    $ export CITUS_ENV=development
+    $ citus run
+
+Apps:
+  --version   Show the citus version
+  |>init      Initialize Citus
+  -h, --help  😵 Check the documentation for more
+              mitigation steps.
+
+
+Commands:
+  routes  Show the routes for the app.
+  run     Run a development server.
+  shell   Run a shell in the app context.

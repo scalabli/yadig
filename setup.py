@@ -1,22 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from setuptools import setup
 
+# Metadata goes in setup.cfg. These are here for GitHub's dependency graph.
 setup(
-    name="citus",
+    name="Citus",
     install_requires=[
-        "quo",
-        "multiparse",
-        "asgiref>= 3.4.0",
-        "h11>= 0.8",
-        "typing-extensions", # env_marker_below_38",
-        "python-dotenv>= 0.13",
-        "PyYAML>= 5.1",
-        "watchgod>= 0.6",
-        "websockets>= 9.1", # env_marker_below_37",
-        "websockets>= 10.0", # env_marker_gte_37",
-        "httptools>= 0.2.0,< 0.4.0",
-        "uvloop>= '0.14.0', != '0.15.0', != '0.15.1'", #env_marker_cpython",
+        "Werkzeug >= 2.0",
+        "Jinja2 >= 3.0",
+        "itsdangerous >= 2.0",
+        "quo >= 2022.1.6",
     ],
+ #   scripts= ['timeanddate'],
+    extras_require={
+        "async": ["asgiref >= 3.2"],
+        "dotenv": ["python-dotenv"],
+    },
 )
