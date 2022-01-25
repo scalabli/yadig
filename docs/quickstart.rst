@@ -1,20 +1,20 @@
 Quickstart
 ==========
 
-Eager to get started? This page gives a good introduction to Flask.
-Follow :doc:`installation` to set up a project and install Flask first.
+Eager to get started? This page gives a good introduction to Citus.
+Follow :doc:`installation` to set up a project and install Citus first.
 
 
 A Minimal Application
 ---------------------
 
-A minimal Flask application looks something like this:
+A minimal Citus application looks something like this:
 
 .. code-block:: python
 
-    from flask import Flask
+    from Citus import Citus
 
-    app = Flask(__name__)
+    app = Citus(__name__)
 
     @app.route("/")
     def hello_world():
@@ -22,27 +22,27 @@ A minimal Flask application looks something like this:
 
 So what did that code do?
 
-1.  First we imported the :class:`~flask.Flask` class. An instance of
+1.  First we imported the :class:`~citus.API` class. An instance of
     this class will be our WSGI application.
 2.  Next we create an instance of this class. The first argument is the
     name of the application's module or package. ``__name__`` is a
     convenient shortcut for this that is appropriate for most cases.
-    This is needed so that Flask knows where to look for resources such
+    This is needed so that citus knows where to look for resources such
     as templates and static files.
-3.  We then use the :meth:`~flask.Flask.route` decorator to tell Flask
+3.  We then use the :meth:`~citus.API.route` decorator to tell Citus
     what URL should trigger our function.
 4.  The function returns the message we want to display in the user's
     browser. The default content type is HTML, so HTML in the string
     will be rendered by the browser.
 
 Save it as :file:`hello.py` or something similar. Make sure to not call
-your application :file:`flask.py` because this would conflict with Flask
+your application :file:`citus.py` because this would conflict with Citus
 itself.
 
-To run the application, use the :command:`flask` command or
-:command:`python -m flask`. Before you can do that you need
+To run the application, use the :command:`citus` command or
+:command:`python -m citus`. Before you can do that you need
 to tell your terminal the application to work with by exporting the
-``FLASK_APP`` environment variable:
+``Citus_APP`` environment variable:
 
 .. tabs::
 
@@ -50,30 +50,30 @@ to tell your terminal the application to work with by exporting the
 
       .. code-block:: text
 
-         $ export FLASK_APP=hello
-         $ flask run
+         $ export Citus_APP=hello
+         $ citus run
           * Running on http://127.0.0.1:5000/
 
    .. group-tab:: CMD
 
       .. code-block:: text
 
-         > set FLASK_APP=hello
-         > flask run
+         > set Citus_APP=hello
+         > citus run
           * Running on http://127.0.0.1:5000/
 
    .. group-tab:: Powershell
 
       .. code-block:: text
 
-         > $env:FLASK_APP = "hello"
-         > flask run
+         > $env:Citus_APP = "hello"
+         > citus run
           * Running on http://127.0.0.1:5000/
 
 .. admonition:: Application Discovery Behavior
 
     As a shortcut, if the file is named ``app.py`` or ``wsgi.py``, you
-    don't have to set the ``FLASK_APP`` environment variable. See
+    don't have to set the ``Citus_APP`` environment variable. See
     :doc:`/cli` for more details.
 
 This launches a very simple builtin server, which is good enough for
@@ -101,7 +101,7 @@ handle that.
    you can make the server publicly available simply by adding
    ``--host=0.0.0.0`` to the command line::
 
-       $ flask run --host=0.0.0.0
+       $ citus run --host=0.0.0.0
 
    This tells your operating system to listen on all public IPs.
 
@@ -109,24 +109,24 @@ handle that.
 What to do if the Server does not Start
 ---------------------------------------
 
-In case the :command:`python -m flask` fails or :command:`flask`
+In case the :command:`python -m citus` fails or :command:`citus`
 does not exist, there are multiple reasons this might be the case.
 First of all you need to look at the error message.
 
-Old Version of Flask
+Old Version of Citus
 ````````````````````
 
-Versions of Flask older than 0.11 used to have different ways to start the
+Versions of Citus older than 0.11 used to have different ways to start the
 application.  In short, the :command:`flask` command did not exist, and
 neither did :command:`python -m flask`.  In that case you have two options:
-either upgrade to newer Flask versions or have a look at :doc:`/server`
+either upgrade to newer Citus versions or have a look at :doc:`/server`
 to see the alternative method for running a server.
 
 Invalid Import Name
 ```````````````````
 
-The ``FLASK_APP`` environment variable is the name of the module to import at
-:command:`flask run`. In case that module is incorrectly named you will get an
+The ``Citus_APP`` environment variable is the name of the module to import at
+:command:`citus run`. In case that module is incorrectly named you will get an
 import error upon start (or if debug is enabled when you navigate to the
 application). It will tell you what it tried to import and why it failed.
 
@@ -137,7 +137,7 @@ The most common reason is a typo or because you did not actually create an
 Debug Mode
 ----------
 
-The ``flask run`` command can do more than just start the development
+The ``citus run`` command can do more than just start the development
 server. By enabling debug mode, the server will automatically reload if
 code changes, and will show an interactive debugger in the browser if an
 error occurs during a request.
@@ -154,8 +154,8 @@ error occurs during a request.
     security risk. Do not run the development server or debugger in a
     production environment.
 
-To enable all development features, set the ``FLASK_ENV`` environment
-variable to ``development`` before calling ``flask run``.
+To enable all development features, set the ``Citus_ENV`` environment
+variable to ``development`` before calling ``citus run``.
 
 .. tabs::
 
@@ -163,22 +163,22 @@ variable to ``development`` before calling ``flask run``.
 
       .. code-block:: text
 
-         $ export FLASK_ENV=development
-         $ flask run
+         $ export Citus_ENV=development
+         $ citus run
 
    .. group-tab:: CMD
 
       .. code-block:: text
 
-         > set FLASK_ENV=development
-         > flask run
+         > set Citus_ENV=development
+         > citus run
 
    .. group-tab:: Powershell
 
       .. code-block:: text
 
-         > $env:FLASK_ENV = "development"
-         > flask run
+         > $env:Citus_ENV = "development"
+         > citus run
 
 See also:
 
@@ -193,7 +193,7 @@ See also:
 HTML Escaping
 -------------
 
-When returning HTML (the default response type in Flask), any
+When returning HTML (the default response type in Citus), any
 user-provided values rendered in the output must be escaped to protect
 from injection attacks. HTML templates rendered with Jinja, introduced
 later, will do this automatically.
@@ -225,7 +225,7 @@ Modern web applications use meaningful URLs to help users. Users are more
 likely to like a page and come back if the page uses a meaningful URL they can
 remember and use to directly visit a page.
 
-Use the :meth:`~flask.Flask.route` decorator to bind a function to a URL. ::
+Use the :meth:`~citus.API.route` decorator to bind a function to a URL. ::
 
     @app.route('/')
     def index():
@@ -289,7 +289,7 @@ The following two rules differ in their use of a trailing slash. ::
 
 The canonical URL for the ``projects`` endpoint has a trailing slash.
 It's similar to a folder in a file system. If you access the URL without
-a trailing slash (``/projects``), Flask redirects you to the canonical URL
+a trailing slash (``/projects``), Citus redirects you to the canonical URL
 with the trailing slash (``/projects/``).
 
 The canonical URL for the ``about`` endpoint does not have a trailing
@@ -304,13 +304,13 @@ indexing the same page twice.
 URL Building
 ````````````
 
-To build a URL to a specific function, use the :func:`~flask.url_for` function.
+To build a URL to a specific function, use the :func:`~citus.url_for` function.
 It accepts the name of the function as its first argument and any number of
 keyword arguments, each corresponding to a variable part of the URL rule.
 Unknown variable parts are appended to the URL as query parameters.
 
 Why would you want to build URLs using the URL reversing function
-:func:`~flask.url_for` instead of hard-coding them into your templates?
+:func:`~citus.url_for` instead of hard-coding them into your templates?
 
 1. Reversing is often more descriptive than hard-coding the URLs.
 2. You can change your URLs in one go instead of needing to remember to
@@ -319,17 +319,17 @@ Why would you want to build URLs using the URL reversing function
 4. The generated paths are always absolute, avoiding unexpected behavior
    of relative paths in browsers.
 5. If your application is placed outside the URL root, for example, in
-   ``/myapplication`` instead of ``/``, :func:`~flask.url_for` properly
+   ``/myapplication`` instead of ``/``, :func:`~citus.url_for` properly
    handles that for you.
 
-For example, here we use the :meth:`~flask.Flask.test_request_context` method
-to try out :func:`~flask.url_for`. :meth:`~flask.Flask.test_request_context`
-tells Flask to behave as though it's handling a request even while we use a
+For example, here we use the :meth:`~citus.API.test_request_context` method
+to try out :func:`~citus.url_for`. :meth:`~citus.API.test_request_context`
+tells Citus to behave as though it's handling a request even while we use a
 Python shell. See :ref:`context-locals`.
 
 .. code-block:: python
 
-    from flask import url_for
+    from Citus import url_for
 
     @app.route('/')
     def index():
@@ -361,12 +361,12 @@ HTTP Methods
 ````````````
 
 Web applications use different HTTP methods when accessing URLs. You should
-familiarize yourself with the HTTP methods as you work with Flask. By default,
+familiarize yourself with the HTTP methods as you work with Citus. By default,
 a route only answers to ``GET`` requests. You can use the ``methods`` argument
-of the :meth:`~flask.Flask.route` decorator to handle different HTTP methods.
+of the :meth:`~citus.API.route` decorator to handle different HTTP methods.
 ::
 
-    from flask import request
+    from citus import request
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
@@ -375,7 +375,7 @@ of the :meth:`~flask.Flask.route` decorator to handle different HTTP methods.
         else:
             return show_the_login_form()
 
-If ``GET`` is present, Flask automatically adds support for the ``HEAD`` method
+If ``GET`` is present, Citus automatically adds support for the ``HEAD`` method
 and handles ``HEAD`` requests according to the `HTTP RFC`_. Likewise,
 ``OPTIONS`` is automatically implemented for you.
 
@@ -386,7 +386,7 @@ Static Files
 
 Dynamic web applications also need static files.  That's usually where
 the CSS and JavaScript files are coming from.  Ideally your web server is
-configured to serve them for you, but during development Flask can do that
+configured to serve them for you, but during development Citus can do that
 as well.  Just create a folder called :file:`static` in your package or next to
 your module and it will be available at ``/static`` on the application.
 
@@ -401,22 +401,22 @@ Rendering Templates
 
 Generating HTML from within Python is not fun, and actually pretty
 cumbersome because you have to do the HTML escaping on your own to keep
-the application secure.  Because of that Flask configures the `Jinja2
+the application secure.  Because of that Citus configures the `Jinja2
 <https://palletsprojects.com/p/jinja/>`_ template engine for you automatically.
 
-To render a template you can use the :func:`~flask.render_template`
+To render a template you can use the :func:`~citus.template`
 method.  All you have to do is provide the name of the template and the
 variables you want to pass to the template engine as keyword arguments.
 Here's a simple example of how to render a template::
 
-    from flask import render_template
+    from citus import template
 
     @app.route('/hello/')
     @app.route('/hello/<name>')
     def hello(name=None):
-        return render_template('hello.html', name=name)
+        return template('hello.html', name=name)
 
-Flask will look for templates in the :file:`templates` folder.  So if your
+Citus will look for templates in the :file:`templates` folder.  So if your
 application is a module, this folder is next to that module, if it's a
 package it's actually inside your package:
 
@@ -442,16 +442,16 @@ Here is an example template:
 .. sourcecode:: html+jinja
 
     <!doctype html>
-    <title>Hello from Flask</title>
+    <title>Hello from citus</title>
     {% if name %}
       <h1>Hello {{ name }}!</h1>
     {% else %}
       <h1>Hello, World!</h1>
     {% endif %}
 
-Inside templates you also have access to the :data:`~flask.Flask.config`,
-:class:`~flask.request`, :class:`~flask.session` and :class:`~flask.g` [#]_ objects
-as well as the :func:`~flask.url_for` and :func:`~flask.get_flashed_messages` functions.
+Inside templates you also have access to the :data:`~citus.API.config`,
+:class:`~citus.request`, :class:`~citus.session` and :class:`~citus.g` [#]_ objects
+as well as the :func:`~citus.url_for` and :func:`~citus.get_flashed_messages` functions.
 
 Templates are especially useful if inheritance is used.  If you want to
 know how that works, see :doc:`patterns/templateinheritance`. Basically
@@ -482,18 +482,18 @@ Here is a basic introduction to how the :class:`~markupsafe.Markup` class works:
    ``.xml``, ``.xhtml``.  Templates loaded from a string will have
    autoescaping disabled.
 
-.. [#] Unsure what that :class:`~flask.g` object is? It's something in which
+.. [#] Unsure what that :class:`~citus.g` object is? It's something in which
    you can store information for your own needs. See the documentation
-   for :class:`flask.g` and :doc:`patterns/sqlite3`.
+   for :class:`citus.g` and :doc:`patterns/sqlite3`.
 
 
 Accessing Request Data
 ----------------------
 
 For web applications it's crucial to react to the data a client sends to
-the server.  In Flask this information is provided by the global
-:class:`~flask.request` object.  If you have some experience with Python
-you might be wondering how that object can be global and how Flask
+the server.  In Citus this information is provided by the global
+:class:`~citus.request` object.  If you have some experience with Python
+you might be wondering how that object can be global and how Citus
 manages to still be threadsafe.  The answer is context locals:
 
 
@@ -507,14 +507,14 @@ Context Locals
    If you want to understand how that works and how you can implement
    tests with context locals, read this section, otherwise just skip it.
 
-Certain objects in Flask are global objects, but not of the usual kind.
+Certain objects in Citus are global objects, but not of the usual kind.
 These objects are actually proxies to objects that are local to a specific
 context.  What a mouthful.  But that is actually quite easy to understand.
 
 Imagine the context being the handling thread.  A request comes in and the
 web server decides to spawn a new thread (or something else, the
 underlying object is capable of dealing with concurrency systems other
-than threads).  When Flask starts its internal request handling it
+than threads).  When Citus starts its internal request handling it
 figures out that the current thread is the active context and binds the
 current application and the WSGI environments to that context (thread).
 It does that in an intelligent way so that one application can invoke another
@@ -525,11 +525,11 @@ this is the case unless you are doing something like unit testing.  You
 will notice that code which depends on a request object will suddenly break
 because there is no request object.  The solution is creating a request
 object yourself and binding it to the context.  The easiest solution for
-unit testing is to use the :meth:`~flask.Flask.test_request_context`
+unit testing is to use the :meth:`~citus.API.test_request_context`
 context manager.  In combination with the ``with`` statement it will bind a
 test request so that you can interact with it.  Here is an example::
 
-    from flask import request
+    from citus import request
 
     with app.test_request_context('/hello', method='POST'):
         # now you can do something with the request until the
@@ -538,7 +538,7 @@ test request so that you can interact with it.  Here is an example::
         assert request.method == 'POST'
 
 The other possibility is passing a whole WSGI environment to the
-:meth:`~flask.Flask.request_context` method::
+:meth:`~citus.API.request_context` method::
 
     with app.request_context(environ):
         assert request.method == 'POST'
@@ -547,16 +547,16 @@ The Request Object
 ``````````````````
 
 The request object is documented in the API section and we will not cover
-it here in detail (see :class:`~flask.Request`). Here is a broad overview of
+it here in detail (see :class:`~citus.Request`). Here is a broad overview of
 some of the most common operations.  First of all you have to import it from
-the ``flask`` module::
+the ``citus`` module::
 
-    from flask import request
+    from citus import request
 
 The current request method is available by using the
-:attr:`~flask.Request.method` attribute.  To access form data (data
+:attr:`~citus.Request.method` attribute.  To access form data (data
 transmitted in a ``POST`` or ``PUT`` request) you can use the
-:attr:`~flask.Request.form` attribute.  Here is a full example of the two
+:attr:`~citus.Request.form` attribute.  Here is a full example of the two
 attributes mentioned above::
 
     @app.route('/login', methods=['POST', 'GET'])
@@ -570,7 +570,7 @@ attributes mentioned above::
                 error = 'Invalid username/password'
         # the code below is executed if the request method
         # was GET or the credentials were invalid
-        return render_template('login.html', error=error)
+        return template('login.html', error=error)
 
 What happens if the key does not exist in the ``form`` attribute?  In that
 case a special :exc:`KeyError` is raised.  You can catch it like a
@@ -579,7 +579,7 @@ error page is shown instead.  So for many situations you don't have to
 deal with that problem.
 
 To access parameters submitted in the URL (``?key=value``) you can use the
-:attr:`~flask.Request.args` attribute::
+:attr:`~citus.Request.args` attribute::
 
     searchword = request.args.get('key', '')
 
@@ -588,26 +588,26 @@ We recommend accessing URL parameters with `get` or by catching the
 bad request page in that case is not user friendly.
 
 For a full list of methods and attributes of the request object, head over
-to the :class:`~flask.Request` documentation.
+to the :class:`~citus.Request` documentation.
 
 
 File Uploads
 ````````````
 
-You can handle uploaded files with Flask easily.  Just make sure not to
+You can handle uploaded files with Citus easily.  Just make sure not to
 forget to set the ``enctype="multipart/form-data"`` attribute on your HTML
 form, otherwise the browser will not transmit your files at all.
 
 Uploaded files are stored in memory or at a temporary location on the
 filesystem.  You can access those files by looking at the
-:attr:`~flask.request.files` attribute on the request object.  Each
+:attr:`~citus.request.files` attribute on the request object.  Each
 uploaded file is stored in that dictionary.  It behaves just like a
 standard Python :class:`file` object, but it also has a
 :meth:`~werkzeug.datastructures.FileStorage.save` method that
 allows you to store that file on the filesystem of the server.
 Here is a simple example showing how that works::
 
-    from flask import request
+    from citus import request
 
     @app.route('/upload', methods=['GET', 'POST'])
     def upload_file():
@@ -639,17 +639,17 @@ For some better examples, see :doc:`patterns/fileuploads`.
 Cookies
 ```````
 
-To access cookies you can use the :attr:`~flask.Request.cookies`
+To access cookies you can use the :attr:`~citus.Request.cookies`
 attribute.  To set cookies you can use the
-:attr:`~flask.Response.set_cookie` method of response objects.  The
-:attr:`~flask.Request.cookies` attribute of request objects is a
+:attr:`~citus.Response.set_cookie` method of response objects.  The
+:attr:`~citus.Request.cookies` attribute of request objects is a
 dictionary with all the cookies the client transmits.  If you want to use
 sessions, do not use the cookies directly but instead use the
-:ref:`sessions` in Flask that add some security on top of cookies for you.
+:ref:`sessions` in Citus that add some security on top of cookies for you.
 
 Reading cookies::
 
-    from flask import request
+    from citus import request
 
     @app.route('/')
     def index():
@@ -659,18 +659,18 @@ Reading cookies::
 
 Storing cookies::
 
-    from flask import make_response
+    from citus import make_response
 
     @app.route('/')
     def index():
-        resp = make_response(render_template(...))
+        resp = make_response(template(...))
         resp.set_cookie('username', 'the username')
         return resp
 
 Note that cookies are set on response objects.  Since you normally
-just return strings from the view functions Flask will convert them into
+just return strings from the view functions Citus will convert them into
 response objects for you.  If you explicitly want to do that you can use
-the :meth:`~flask.make_response` function and then modify it.
+the :meth:`~citus.make_response` function and then modify it.
 
 Sometimes you might want to set a cookie at a point where the response
 object does not exist yet.  This is possible by utilizing the
@@ -681,11 +681,11 @@ For this also see :ref:`about-responses`.
 Redirects and Errors
 --------------------
 
-To redirect a user to another endpoint, use the :func:`~flask.redirect`
+To redirect a user to another endpoint, use the :func:`~citus.redirect`
 function; to abort a request early with an error code, use the
-:func:`~flask.abort` function::
+:func:`~citus.abort` function::
 
-    from flask import abort, redirect, url_for
+    from citus import abort, redirect, url_for
 
     @app.route('/')
     def index():
@@ -702,16 +702,16 @@ shows how that works.
 
 By default a black and white error page is shown for each error code.  If
 you want to customize the error page, you can use the
-:meth:`~flask.Flask.errorhandler` decorator::
+:meth:`~citus.API.errorhandler` decorator::
 
-    from flask import render_template
+    from citus import template
 
     @app.errorhandler(404)
     def page_not_found(error):
-        return render_template('page_not_found.html'), 404
+        return template('page_not_found.html'), 404
 
-Note the ``404`` after the :func:`~flask.render_template` call.  This
-tells Flask that the status code of that page should be 404 which means
+Note the ``404`` after the :func:`~citus.template` call.  This
+tells Citus that the status code of that page should be 404 which means
 not found.  By default 200 is assumed which translates to: all went well.
 
 See :doc:`errorhandling` for more details.
@@ -726,7 +726,7 @@ a response object for you. If the return value is a string it's
 converted into a response object with the string as response body, a
 ``200 OK`` status code and a :mimetype:`text/html` mimetype. If the
 return value is a dict, :func:`jsonify` is called to produce a response.
-The logic that Flask applies to converting return values into response
+The logic that Citus applies to converting return values into response
 objects is as follows:
 
 1.  If a response object of the correct type is returned it's directly
@@ -740,29 +740,29 @@ objects is as follows:
     ``(response, status, headers)``. The ``status`` value will override
     the status code and ``headers`` can be a list or dictionary of
     additional header values.
-5.  If none of that works, Flask will assume the return value is a
+5.  If none of that works, Citus will assume the return value is a
     valid WSGI application and convert that into a response object.
 
 If you want to get hold of the resulting response object inside the view
-you can use the :func:`~flask.make_response` function.
+you can use the :func:`~citus.make_response` function.
 
 Imagine you have a view like this::
 
-    from flask import render_template
+    from citus import template
 
     @app.errorhandler(404)
     def not_found(error):
-        return render_template('error.html'), 404
+        return template('error.html'), 404
 
 You just need to wrap the return expression with
-:func:`~flask.make_response` and get the response object to modify it, then
+:func:`~citus.make_response` and get the response object to modify it, then
 return it::
 
-    from flask import make_response
+    from citus import make_response
 
     @app.errorhandler(404)
     def not_found(error):
-        resp = make_response(render_template('error.html'), 404)
+        resp = make_response(template('error.html'), 404)
         resp.headers['X-Something'] = 'A value'
         return resp
 
@@ -771,7 +771,7 @@ APIs with JSON
 ``````````````
 
 A common response format when writing an API is JSON. It's easy to get
-started writing such an API with Flask. If you return a ``dict`` from a
+started writing such an API with Citus. If you return a ``dict`` from a
 view, it will be converted to a JSON response.
 
 .. code-block:: python
@@ -787,13 +787,13 @@ view, it will be converted to a JSON response.
 
 Depending on your API design, you may want to create JSON responses for
 types other than ``dict``. In that case, use the
-:func:`~flask.json.jsonify` function, which will serialize any supported
-JSON data type. Or look into Flask community extensions that support
+:func:`~citus.json.jsonify` function, which will serialize any supported
+JSON data type. Or look into Citus community extensions that support
 more complex applications.
 
 .. code-block:: python
 
-    from flask import jsonify
+    from citus import jsonify
 
     @app.route("/users")
     def users_api():
@@ -807,7 +807,7 @@ Sessions
 --------
 
 In addition to the request object there is also a second object called
-:class:`~flask.session` which allows you to store information specific to a
+:class:`~citus.session` which allows you to store information specific to a
 user from one request to the next.  This is implemented on top of cookies
 for you and signs the cookies cryptographically.  What this means is that
 the user could look at the contents of your cookie but not modify it,
@@ -816,7 +816,7 @@ unless they know the secret key used for signing.
 In order to use sessions you have to set a secret key.  Here is how
 sessions work::
 
-    from flask import session
+    from citus import session
 
     # Set the secret key to some random bytes. Keep this really secret!
     app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -850,12 +850,12 @@ sessions work::
     A secret key should be as random as possible. Your operating system has
     ways to generate pretty random data based on a cryptographic random
     generator. Use the following command to quickly generate a value for
-    :attr:`Flask.secret_key` (or :data:`SECRET_KEY`)::
+    :attr:`citus.secret_key` (or :data:`SECRET_KEY`)::
 
         $ python -c 'import secrets; print(secrets.token_hex())'
         '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
 
-A note on cookie-based sessions: Flask will take the values you put into the
+A note on cookie-based sessions: Citus will take the values you put into the
 session object and serialize them into a cookie.  If you are finding some
 values do not persist across requests, cookies are indeed enabled, and you are
 not getting a clear error message, check the size of the cookie in your page
@@ -863,21 +863,21 @@ responses compared to the size supported by web browsers.
 
 Besides the default client-side based sessions, if you want to handle
 sessions on the server-side instead, there are several
-Flask extensions that support this.
+Citus extensions that support this.
 
 Message Flashing
 ----------------
 
 Good applications and user interfaces are all about feedback.  If the user
 does not get enough feedback they will probably end up hating the
-application.  Flask provides a really simple way to give feedback to a
+application.  Citus provides a really simple way to give feedback to a
 user with the flashing system.  The flashing system basically makes it
 possible to record a message at the end of a request and access it on the next
 (and only the next) request.  This is usually combined with a layout
 template to expose the message.
 
-To flash a message use the :func:`~flask.flash` method, to get hold of the
-messages you can use :func:`~flask.get_flashed_messages` which is also
+To flash a message use the :func:`~citus.flash` method, to get hold of the
+messages you can use :func:`~citus.get_flashed_messages` which is also
 available in the templates. See :doc:`patterns/flashing` for a full
 example.
 
@@ -895,7 +895,7 @@ to reply with ``400 Bad Request`` in that situation, but sometimes
 that won't do and the code has to continue working.
 
 You may still want to log that something fishy happened.  This is where
-loggers come in handy.  As of Flask 0.3 a logger is preconfigured for you
+loggers come in handy.  As of Citus 0.3 a logger is preconfigured for you
 to use.
 
 Here are some example log calls::
@@ -904,7 +904,7 @@ Here are some example log calls::
     app.logger.warning('A warning occurred (%d apples)', 42)
     app.logger.error('An error occurred')
 
-The attached :attr:`~flask.Flask.logger` is a standard logging
+The attached :attr:`~citus.API.logger` is a standard logging
 :class:`~logging.Logger`, so head over to the official :mod:`logging`
 docs for more information.
 
@@ -914,7 +914,7 @@ See :doc:`errorhandling`.
 Hooking in WSGI Middleware
 --------------------------
 
-To add WSGI middleware to your Flask application, wrap the application's
+To add WSGI middleware to your Citus application, wrap the application's
 ``wsgi_app`` attribute. For example, to apply Werkzeug's
 :class:`~werkzeug.middleware.proxy_fix.ProxyFix` middleware for running
 behind Nginx:
@@ -925,19 +925,19 @@ behind Nginx:
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
 Wrapping ``app.wsgi_app`` instead of ``app`` means that ``app`` still
-points at your Flask application, not at the middleware, so you can
+points at your Citus application, not at the middleware, so you can
 continue to use and configure ``app`` directly.
 
-Using Flask Extensions
+Using Citus Extensions
 ----------------------
 
 Extensions are packages that help you accomplish common tasks. For
-example, Flask-SQLAlchemy provides SQLAlchemy support that makes it simple
-and easy to use with Flask.
+example, Citus-SQLAlchemy provides SQLAlchemy support that makes it simple
+and easy to use with Citus.
 
-For more on Flask extensions, see :doc:`extensions`.
+For more on Citus extensions, see :doc:`extensions`.
 
 Deploying to a Web Server
 -------------------------
 
-Ready to deploy your new Flask app? See :doc:`deploying/index`.
+Ready to deploy your new Citus app? See :doc:`deploying/index`.
