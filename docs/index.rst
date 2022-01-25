@@ -1,22 +1,22 @@
 .. rst-class:: hide-header
 
-Welcome to Flask
+Welcome to Citus
 ================
 
 .. image:: images/citus.png
-    :alt: Flask: web development, one drop at a time
+    :alt: Citus: utrafast web framework focusing on composing Web APIs all the more rapidly and with needless baggage
     :align: center
-    :target: https://palletsprojects.com/p/flask/
+    :target: https://citus.rtfd.io/
 
-Welcome to Flask's documentation. Get started with :doc:`installation`
+Welcome to Citus's documentation. Get started with :doc:`installation`
 and then get an overview with the :doc:`quickstart`. There is also a
 more detailed :doc:`tutorial/index` that shows how to create a small but
-complete application with Flask. Common patterns are described in the
+complete application with Citus. Common patterns are described in the
 :doc:`patterns/index` section. The rest of the docs describe each
-component of Flask in detail, with a full reference in the :doc:`api`
+component of Citus in detail, with a full reference in the :doc:`api`
 section.
 
-Flask depends on the `Jinja`_ template engine and the `Werkzeug`_ WSGI
+Citus depends on the `Jinja`_ template engine and the `Werkzeug`_ WSGI
 toolkit. The documentation for these libraries can be found at:
 
 - `Jinja documentation <https://jinja.palletsprojects.com/>`_
@@ -30,8 +30,8 @@ User's Guide
 ------------
 
 This part of the documentation, which is mostly prose, begins with some
-background information about Flask, then focuses on step-by-step
-instructions for web development with Flask.
+background information about Citus, then focuses on step-by-step
+instructions for web development with Citus.
 
 .. toctree::
    :maxdepth: 2
