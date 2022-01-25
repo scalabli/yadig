@@ -3,7 +3,7 @@
 Welcome to Flask
 ================
 
-.. image:: _static/flask-logo.png
+.. image:: images/citus.png
     :alt: Flask: web development, one drop at a time
     :align: center
     :target: https://palletsprojects.com/p/flask/
