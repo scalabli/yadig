@@ -34,7 +34,7 @@ extensions = ["sphinx.ext.autodoc", "sphinx.ext.graphviz"]
 # templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = ".rst"
+source_suffix = ".md"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
