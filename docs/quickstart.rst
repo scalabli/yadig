@@ -113,14 +113,6 @@ In case the :command:`python -m citus` fails or :command:`citus`
 does not exist, there are multiple reasons this might be the case.
 First of all you need to look at the error message.
 
-Old Version of Citus
-````````````````````
-
-Versions of Citus older than 0.11 used to have different ways to start the
-application.  In short, the :command:`flask` command did not exist, and
-neither did :command:`python -m flask`.  In that case you have two options:
-either upgrade to newer Citus versions or have a look at :doc:`/server`
-to see the alternative method for running a server.
 
 Invalid Import Name
 ```````````````````
