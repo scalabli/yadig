@@ -1,18 +1,18 @@
 Foreword for Experienced Programmers
 ====================================
 
-Thread-Locals in Flask
+Thread-Locals in Citus
 ----------------------
 
-One of the design decisions in Flask was that simple tasks should be simple;
+One of the design decisions in Citus was that simple tasks should be simple;
 they should not take a lot of code and yet they should not limit you. Because
-of that, Flask has a few design choices that some people might find
-surprising or unorthodox. For example, Flask uses thread-local objects
+of that, Citus has a few design choices that some people might find
+surprising or unorthodox. For example, Citus uses thread-local objects
 internally so that you don’t have to pass objects around from
 function to function within a request in order to stay threadsafe.
 This approach is convenient, but requires a valid
 request context for dependency injection or when attempting to reuse code which
-uses a value pegged to the request.  The Flask project is honest about
+uses a value pegged to the request.  The Citus project is honest about
 thread-locals, does not hide them, and calls out in the code and documentation
 where they are used.
 
@@ -27,9 +27,9 @@ And even if you are the only user that might leave data in your application,
 you still want that data to be stored securely.
 
 Unfortunately, there are many ways the security of a web application can be
-compromised.  Flask protects you against one of the most common security
+compromised.  Citus protects you against one of the most common security
 problems of modern web applications: cross-site scripting (XSS).  Unless you
-deliberately mark insecure HTML as secure, Flask and the underlying Jinja2
+deliberately mark insecure HTML as secure, Citus and the underlying Jinja2
 template engine have you covered.  But there are many more ways to cause
 security problems.
 
@@ -42,5 +42,5 @@ important enough to attract an attacker.  Depending on the kind of attack,
 chances are that automated bots are probing for ways to fill your database with
 spam, links to malicious software, and the like.
 
-Flask is no different from any other framework in that you the developer must
+Citus is no different from any other framework in that you the developer must
 build with caution, watching for exploits when building to your requirements.
