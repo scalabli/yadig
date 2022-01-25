@@ -1,0 +1,6 @@
+Sphinx==4.3.2
+pyperclip==1.8.2
+sphinx_rtd_theme==1.0.0
+anyio
+click
+myst_parser
