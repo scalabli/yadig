@@ -140,7 +140,7 @@ Citus:
 
 .. code-block:: sh
 
-    $ pip install - Ucitus
+    $ pip install -U citus
 
 Citus is now installed. Check out the :doc:`/quickstart` or go to the
 :doc:`Documentation Overview </index>`.
