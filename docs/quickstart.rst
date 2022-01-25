@@ -12,12 +12,12 @@ A minimal Citus application looks something like this:
 
 .. code-block:: python
 
-    from Citus import Citus
+    import citus
 
-    app = Citus(__name__)
+    app = citus.API()
 
-    @app.route("/")
-    def hello_world():
+    @app.get("/")
+    def root():
         return "<p>Hello, World!</p>"
 
 So what did that code do?
@@ -29,7 +29,7 @@ So what did that code do?
     convenient shortcut for this that is appropriate for most cases.
     This is needed so that citus knows where to look for resources such
     as templates and static files.
-3.  We then use the :meth:`~citus.API.route` decorator to tell Citus
+3.  We then use the :meth:`~citus.API.get` decorator to tell Citus
     what URL should trigger our function.
 4.  The function returns the message we want to display in the user's
     browser. The default content type is HTML, so HTML in the string
@@ -39,7 +39,7 @@ Save it as :file:`hello.py` or something similar. Make sure to not call
 your application :file:`citus.py` because this would conflict with Citus
 itself.
 
-To run the application, use the :command:`citus` command or
+To run the application, use the :command:`citus` command or :command:`cts` or
 :command:`python -m citus`. Before you can do that you need
 to tell your terminal the application to work with by exporting the
 ``Citus_APP`` environment variable:
