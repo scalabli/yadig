@@ -5,14 +5,14 @@ Installation
 Python Version
 --------------
 
-We recommend using the latest version of Python. Flask supports Python
+We recommend using the latest version of Python. Citus supports Python
 3.7 and newer.
 
 
 Dependencies
 ------------
 
-These distributions will be installed automatically when installing Flask.
+These distributions will be installed automatically when installing Citus.
 
 * `Werkzeug`_ implements WSGI, the standard Python interface between
   applications and servers.
@@ -21,9 +21,9 @@ These distributions will be installed automatically when installing Flask.
 * `MarkupSafe`_ comes with Jinja. It escapes untrusted input when rendering
   templates to avoid injection attacks.
 * `ItsDangerous`_ securely signs data to ensure its integrity. This is used
-  to protect Flask's session cookie.
+  to protect Citus's session cookie.
 * `Click`_ is a framework for writing command line applications. It provides
-  the ``flask`` command and allows adding custom management commands.
+  the ``citus`` command and allows adding custom management commands.
 
 .. _Werkzeug: https://palletsprojects.com/p/werkzeug/
 .. _Jinja: https://palletsprojects.com/p/jinja/
@@ -35,11 +35,11 @@ These distributions will be installed automatically when installing Flask.
 Optional dependencies
 ~~~~~~~~~~~~~~~~~~~~~
 
-These distributions will not be installed automatically. Flask will detect and
+These distributions will not be installed automatically. Citus will detect and
 use them if you install them.
 
 * `Blinker`_ provides support for :doc:`signals`.
-* `python-dotenv`_ enables support for :ref:`dotenv` when running ``flask``
+* `python-dotenv`_ enables support for :ref:`dotenv` when running ``citus``
   commands.
 * `Watchdog`_ provides a faster, more efficient reloader for the development
   server.
@@ -131,15 +131,15 @@ Your shell prompt will change to show the name of the activated
 environment.
 
 
-Install Flask
+Install Citus
 -------------
 
 Within the activated environment, use the following command to install
-Flask:
+Citus:
 
 .. code-block:: sh
 
-    $ pip install Flask
+    $ pip install citus
 
-Flask is now installed. Check out the :doc:`/quickstart` or go to the
+Citus is now installed. Check out the :doc:`/quickstart` or go to the
 :doc:`Documentation Overview </index>`.
