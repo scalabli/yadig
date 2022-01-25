@@ -6,7 +6,7 @@ Python Version
 --------------
 
 We recommend using the latest version of Python. Citus supports Python
-3.7 and newer.
+3.8 and newer.
 
 
 Dependencies
@@ -22,14 +22,15 @@ These distributions will be installed automatically when installing Citus.
   templates to avoid injection attacks.
 * `ItsDangerous`_ securely signs data to ensure its integrity. This is used
   to protect Citus's session cookie.
-* `Click`_ is a framework for writing command line applications. It provides
+* `Quo`_ is a Python based toolkit for creating Command-Line Interface (CLI) applications.
+It provides
   the ``citus`` command and allows adding custom management commands.
 
 .. _Werkzeug: https://palletsprojects.com/p/werkzeug/
 .. _Jinja: https://palletsprojects.com/p/jinja/
 .. _MarkupSafe: https://palletsprojects.com/p/markupsafe/
 .. _ItsDangerous: https://palletsprojects.com/p/itsdangerous/
-.. _Click: https://palletsprojects.com/p/click/
+.. _Quo: https://quo.rtfd.io/
 
 
 Optional dependencies
@@ -139,7 +140,7 @@ Citus:
 
 .. code-block:: sh
 
-    $ pip install citus
+    $ pip install - Ucitus
 
 Citus is now installed. Check out the :doc:`/quickstart` or go to the
 :doc:`Documentation Overview </index>`.
