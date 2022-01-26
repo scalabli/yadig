@@ -1,4 +1,4 @@
-.. currentmodule:: flask
+.. currentmodule:: citus
 
 The Request Context
 ===================
@@ -16,14 +16,14 @@ application context is pushed when a request context is pushed.
 Purpose of the Context
 ----------------------
 
-When the :class:`Flask` application handles a request, it creates a
+When the :class:`API` application handles a request, it creates a
 :class:`Request` object based on the environment it received from the
 WSGI server. Because a *worker* (thread, process, or coroutine depending
 on the server) handles only one request at a time, the request data can
-be considered global to that worker during that request. Flask uses the
+be considered global to that worker during that request. Citus uses the
 term *context local* for this.
 
-Flask automatically *pushes* a request context when handling a request.
+Citus automatically *pushes* a request context when handling a request.
 View functions, error handlers, and other functions that run during a
 request will have access to the :data:`request` proxy, which points to
 the request object for the current request.
@@ -32,7 +32,7 @@ the request object for the current request.
 Lifetime of the Context
 -----------------------
 
-When a Flask application begins handling a request, it pushes a request
+When a Citus application begins handling a request, it pushes a request
 context, which also pushes an :doc:`app context </appcontext>`. When the
 request ends it pops the request context then the application context.
 
@@ -61,8 +61,8 @@ a request context, you'll get this error message:
 
 This should typically only happen when testing code that expects an
 active request. One option is to use the
-:meth:`test client <Flask.test_client>` to simulate a full request. Or
-you can use :meth:`~Flask.test_request_context` in a ``with`` block, and
+:meth:`test client <API.test_client>` to simulate a full request. Or
+you can use :meth:`~API.test_request_context` in a ``with`` block, and
 everything that runs in the block will have access to :data:`request`,
 populated with your test data. ::
 
@@ -85,7 +85,7 @@ Python shell, see :doc:`/shell`.
 How the Context Works
 ---------------------
 
-The :meth:`Flask.wsgi_app` method is called to handle each request. It
+The :meth:`API.wsgi_app` method is called to handle each request. It
 manages the contexts during the request. Internally, the request and
 application contexts work as stacks, :data:`_request_ctx_stack` and
 :data:`_app_ctx_stack`. When contexts are pushed onto the stack, the
@@ -106,8 +106,8 @@ redirects or chain different applications together.
 
 After the request is dispatched and a response is generated and sent,
 the request context is popped, which then pops the application context.
-Immediately before they are popped, the :meth:`~Flask.teardown_request`
-and :meth:`~Flask.teardown_appcontext` functions are executed. These
+Immediately before they are popped, the :meth:`~API.teardown_request`
+and :meth:`~API.teardown_appcontext` functions are executed. These
 execute even if an unhandled exception occurred during dispatch.
 
 
@@ -124,28 +124,28 @@ A :class:`Blueprint` can add handlers for these events that are specific
 to the blueprint. The handlers for a blueprint will run if the blueprint
 owns the route that matches the request.
 
-#.  Before each request, :meth:`~Flask.before_request` functions are
+#.  Before each request, :meth:`~API.before_request` functions are
     called. If one of these functions return a value, the other
     functions are skipped. The return value is treated as the response
     and the view function is not called.
 
-#.  If the :meth:`~Flask.before_request` functions did not return a
+#.  If the :meth:`~API.before_request` functions did not return a
     response, the view function for the matched route is called and
     returns a response.
 
 #.  The return value of the view is converted into an actual response
-    object and passed to the :meth:`~Flask.after_request`
+    object and passed to the :meth:`~API.after_request`
     functions. Each function returns a modified or new response object.
 
 #.  After the response is returned, the contexts are popped, which calls
-    the :meth:`~Flask.teardown_request` and
-    :meth:`~Flask.teardown_appcontext` functions. These functions are
+    the :meth:`~API.teardown_request` and
+    :meth:`~API.teardown_appcontext` functions. These functions are
     called even if an unhandled exception was raised at any point above.
 
 If an exception is raised before the teardown functions, Flask tries to
-match it with an :meth:`~Flask.errorhandler` function to handle the
+match it with an :meth:`~API.errorhandler` function to handle the
 exception and return a response. If no error handler is found, or the
-handler itself raises an exception, Flask returns a generic
+handler itself raises an exception, Citus returns a generic
 ``500 Internal Server Error`` response. The teardown functions are still
 called, and are passed the exception object.
 
@@ -168,14 +168,14 @@ will not fail.
 
 During testing, it can be useful to defer popping the contexts after the
 request ends, so that their data can be accessed in the test function.
-Use the :meth:`~Flask.test_client` as a ``with`` block to preserve the
+Use the :meth:`~API.test_client` as a ``with`` block to preserve the
 contexts until the ``with`` block exits.
 
 .. code-block:: python
 
-    from flask import Flask, request
+    import citus
 
-    app = Flask(__name__)
+    app = citus.API()
 
     @app.route('/')
     def hello():
@@ -194,7 +194,7 @@ contexts until the ``with`` block exits.
     with app.test_client() as client:
         client.get('/')
         # the contexts are not popped even though the request ended
-        print(request.path)
+        print(citus.request.path)
 
     # the contexts are popped and teardown functions are called after
     # the client with block exits
@@ -206,17 +206,17 @@ If :data:`~signals.signals_available` is true, the following signals are
 sent:
 
 #.  :data:`request_started` is sent before the
-    :meth:`~Flask.before_request` functions are called.
+    :meth:`~API.before_request` functions are called.
 
 #.  :data:`request_finished` is sent after the
-    :meth:`~Flask.after_request` functions are called.
+    :meth:`~API.after_request` functions are called.
 
 #.  :data:`got_request_exception` is sent when an exception begins to
-    be handled, but before an :meth:`~Flask.errorhandler` is looked up or
+    be handled, but before an :meth:`~API.errorhandler` is looked up or
     called.
 
 #.  :data:`request_tearing_down` is sent after the
-    :meth:`~Flask.teardown_request` functions are called.
+    :meth:`~API.teardown_request` functions are called.
 
 
 Context Preservation on Error
@@ -227,7 +227,7 @@ associated with it is destroyed. If an error occurs during development,
 it is useful to delay destroying the data for debugging purposes.
 
 When the development server is running in development mode (the
-``FLASK_ENV`` environment variable is set to ``'development'``), the
+``CITUS_ENV`` environment variable is set to ``'development'``), the
 error and data will be preserved and shown in the interactive debugger.
 
 This behavior can be controlled with the

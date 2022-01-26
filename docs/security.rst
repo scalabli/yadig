@@ -23,7 +23,7 @@ in templates, but there are still other places where you have to be
 careful:
 
 -   generating HTML without the help of Jinja2
--   calling :class:`~flask.Markup` on data submitted by users
+-   calling :class:`~cts.Markup` on data submitted by users
 -   sending out HTML from uploaded files, never do that, use the
     ``Content-Disposition: attachment`` header to prevent that problem.
 -   sending out textfiles from uploaded files.  Some browsers are using
@@ -98,7 +98,7 @@ store that in the cookie **and** also transmit it with the form data.
 After receiving the data on the server again, you would then have to
 compare the two tokens and ensure they are equal.
 
-Why does Flask not do that for you?  The ideal place for this to happen is
+Why does Citus not do that for you?  The ideal place for this to happen is
 the form validation framework, which does not exist in Flask.
 
 .. _security-json:

@@ -4,7 +4,7 @@ Welcome to Citus
 ================
 
 .. image:: images/citus.png
-    :alt: Citus: utrafast web framework focusing on composing Web APIs all the more rapidly and with needless baggage
+    :alt: Citus: Ultrafast web framework focusing on composing Web APIs all the more rapidly and with needless baggage
     :align: center
     :target: https://citus.rtfd.io/
 

@@ -1,24 +1,21 @@
 Signals
 =======
 
-.. versionadded:: 0.6
-
-Starting with Flask 0.6, there is integrated support for signalling in
-Flask.  This support is provided by the excellent `blinker`_ library and
+There is integrated support for signalling in Citus.  This support is provided by the excellent `blinker`_ library and
 will gracefully fall back if it is not available.
 
 What are signals?  Signals help you decouple applications by sending
 notifications when actions occur elsewhere in the core framework or
-another Flask extensions.  In short, signals allow certain senders to
+another Citus extensions.  In short, signals allow certain senders to
 notify subscribers that something happened.
 
-Flask comes with a couple of signals and other extensions might provide
+Citus comes with a couple of signals and other extensions might provide
 more.  Also keep in mind that signals are intended to notify subscribers
 and should not encourage subscribers to modify data.  You will notice that
 there are signals that appear to do the same thing like some of the
-builtin decorators do (eg: :data:`~flask.request_started` is very similar
-to :meth:`~flask.Flask.before_request`).  However, there are differences in
-how they work.  The core :meth:`~flask.Flask.before_request` handler, for
+builtin decorators do (eg: :data:`~citus.request_started` is very similar
+to :meth:`~citus.API.before_request`).  However, there are differences in
+how they work.  The core :meth:`~citus.API.before_request` handler, for
 example, is executed in a specific order and is able to abort the request
 early by returning a response.  In contrast all signal handlers are
 executed in undefined order and do not modify any data.
@@ -38,7 +35,7 @@ argument is the function that should be called when the signal is emitted,
 the optional second argument specifies a sender.  To unsubscribe from a
 signal, you can use the :meth:`~blinker.base.Signal.disconnect` method.
 
-For all core Flask signals, the sender is the application that issued the
+For all core Citus signals, the sender is the application that issued the
 signal.  When you subscribe to a signal, be sure to also provide a sender
 unless you really want to listen for signals from all applications.  This is
 especially true if you are developing an extension.
@@ -47,7 +44,7 @@ For example, here is a helper context manager that can be used in a unit test
 to determine which templates were rendered and what variables were passed
 to the template::
 
-    from flask import template_rendered
+    from citus import template_rendered
     from contextlib import contextmanager
 
     @contextmanager
@@ -125,9 +122,9 @@ debugging.  You can access the name of the signal with the
 
 .. admonition:: For Extension Developers
 
-   If you are writing a Flask extension and you want to gracefully degrade for
+   If you are writing a Citus extension and you want to gracefully degrade for
    missing blinker installations, you can do so by using the
-   :class:`flask.signals.Namespace` class.
+   :class:`citus.signals.Namespace` class.
 
 .. _signals-sending:
 
@@ -151,20 +148,20 @@ function, you can pass ``current_app._get_current_object()`` as sender.
 
 .. admonition:: Passing Proxies as Senders
 
-   Never pass :data:`~flask.current_app` as sender to a signal.  Use
+   Never pass :data:`~citus.current_app` as sender to a signal.  Use
    ``current_app._get_current_object()`` instead.  The reason for this is
-   that :data:`~flask.current_app` is a proxy and not the real application
+   that :data:`~citus.current_app` is a proxy and not the real application
    object.
 
 
-Signals and Flask's Request Context
+Signals and Citus' Request Context
 -----------------------------------
 
 Signals fully support :doc:`reqcontext` when receiving signals.
 Context-local variables are consistently available between
-:data:`~flask.request_started` and :data:`~flask.request_finished`, so you can
-rely on :class:`flask.g` and others as needed.  Note the limitations described
-in :ref:`signals-sending` and the :data:`~flask.request_tearing_down` signal.
+:data:`~citus.request_started` and :data:`~citus.request_finished`, so you can
+rely on :class:`citus.g` and others as needed.  Note the limitations described
+in :ref:`signals-sending` and the :data:`~citus.request_tearing_down` signal.
 
 
 Decorator Based Signal Subscriptions
@@ -173,7 +170,7 @@ Decorator Based Signal Subscriptions
 With Blinker 1.1 you can also easily subscribe to signals by using the new
 :meth:`~blinker.base.NamedSignal.connect_via` decorator::
 
-    from flask import template_rendered
+    from citus import template_rendered
 
     @template_rendered.connect_via(app)
     def when_template_rendered(sender, template, context, **extra):

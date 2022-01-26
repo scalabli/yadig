@@ -1,9 +1,9 @@
 Logging
 =======
 
-Flask uses standard Python :mod:`logging`. Messages about your Flask
-application are logged with :meth:`app.logger <flask.Flask.logger>`,
-which takes the same name as :attr:`app.name <flask.Flask.name>`. This
+Citus uses standard Python :mod:`logging`. Messages about your Citus
+application are logged with :meth:`app.logger <citus.API.logger>`,
+which takes the same name as :attr:`app.name <citus.API.name>`. This
 logger can also be used to log your own messages.
 
 .. code-block:: python
@@ -28,12 +28,12 @@ Basic Configuration
 -------------------
 
 When you want to configure logging for your project, you should do it as soon
-as possible when the program starts. If :meth:`app.logger <flask.Flask.logger>`
+as possible when the program starts. If :meth:`app.logger <citus.API.logger>`
 is accessed before logging is configured, it will add a default handler. If
 possible, configure logging before creating the application object.
 
 This example uses :func:`~logging.config.dictConfig` to create a logging
-configuration similar to Flask's default, except for all logs::
+configuration similar to Citus' default, except for all logs::
 
     from logging.config import dictConfig
 
@@ -59,8 +59,8 @@ configuration similar to Flask's default, except for all logs::
 Default Configuration
 `````````````````````
 
-If you do not configure logging yourself, Flask will add a
-:class:`~logging.StreamHandler` to :meth:`app.logger <flask.Flask.logger>`
+If you do not configure logging yourself, Citus will add a
+:class:`~logging.StreamHandler` to :meth:`app.logger <citus.API.logger>`
 automatically. During requests, it will write to the stream specified by the
 WSGI server in ``environ['wsgi.errors']`` (which is usually
 :data:`sys.stderr`). Outside a request, it will log to :data:`sys.stderr`.
@@ -70,10 +70,10 @@ Removing the Default Handler
 ````````````````````````````
 
 If you configured logging after accessing
-:meth:`app.logger <flask.Flask.logger>`, and need to remove the default
+:meth:`app.logger <citus.API.logger>`, and need to remove the default
 handler, you can import and remove it::
 
-    from flask.logging import default_handler
+    from citus.logging import default_handler
 
     app.logger.removeHandler(default_handler)
 
@@ -117,7 +117,7 @@ Injecting Request Information
 Seeing more information about the request, such as the IP address, may help
 debugging some errors. You can subclass :class:`logging.Formatter` to inject
 your own fields that can be used in messages. You can change the formatter for
-Flask's default handler, the mail handler defined above, or any other
+Citus' default handler, the mail handler defined above, or any other
 handler. ::
 
     from flask import has_request_context, request
@@ -175,9 +175,9 @@ If the root logger has no handlers configured, Werkzeug adds a
 :class:`~logging.StreamHandler` to its logger.
 
 
-Flask Extensions
+Citus Extensions
 ````````````````
 
 Depending on the situation, an extension may choose to log to
-:meth:`app.logger <flask.Flask.logger>` or its own named logger. Consult each
+:meth:`app.logger <citus.API.logger>` or its own named logger. Consult each
 extension's documentation for details.

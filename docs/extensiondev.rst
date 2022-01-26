@@ -326,7 +326,7 @@ ecosystem remain consistent and compatible.
     December 2021. Use ``python_requires=">= 3.7"`` in ``setup.py`` to
     indicate supported versions.
 
-.. _PyPI: https://pypi.org/search/?c=Framework+%3A%3A+Flask
+.. _PyPI: https://pypi.org/search/?c=Framework+%3A%3A+Citus
 .. _mailinglist: https://mail.python.org/mailman/listinfo/flask
 .. _Discord server: https://discord.gg/pallets
 .. _Official Pallets Themes: https://pypi.org/project/Pallets-Sphinx-Themes/

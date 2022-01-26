@@ -19,7 +19,7 @@ errors:
 And that's just a small sample of issues you could be facing. So how do we
 deal with that sort of problem? By default if your application runs in
 production mode, and an exception is raised Flask will display a very simple
-page for you and log the exception to the :attr:`~flask.Flask.logger`.
+page for you and log the exception to the :attr:`~citus.API.logger`.
 
 But there is more you can do, and we will cover some better setups to deal
 with errors including custom exceptions and 3rd party tools.
@@ -470,7 +470,9 @@ This is a simple example:
 
 .. code-block:: python
 
-    from flask import jsonify, request
+    import citus
+
+    app = citus.API()
 
     class InvalidAPIUsage(Exception):
         status_code = 400
@@ -489,13 +491,13 @@ This is a simple example:
 
     @app.errorhandler(InvalidAPIUsage)
     def invalid_api_usage(e):
-        return jsonify(e.to_dict())
+        return citus.jsonify(e.to_dict())
 
     # an API app route for getting user information
     # a correct request might be /api/user?user_id=420
     @app.route("/api/user")
     def user_api(user_id):
-        user_id = request.arg.get("user_id")
+        user_id = citus.request.arg.get("user_id")
         if not user_id:
             raise InvalidAPIUsage("No user id provided!")
 
@@ -503,7 +505,7 @@ This is a simple example:
         if not user:
             raise InvalidAPIUsage("No such user!", status_code=404)
 
-        return jsonify(user.to_dict())
+        return citus.jsonify(user.to_dict())
 
 A view can now raise that exception with an error message. Additionally
 some extra payload can be provided as a dictionary through the `payload`

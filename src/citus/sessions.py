@@ -241,7 +241,7 @@ class SessionInterface:
         """
         return app.config["SESSION_COOKIE_PATH"] or app.config["APPLICATION_ROOT"]
 
-    def get_cookie_httponly(self, app: "Flask") -> bool:
+    def get_cookie_httponly(self, app: "API") -> bool:
         """Returns True if the session cookie should be httponly.  This
         currently just returns the value of the ``SESSION_COOKIE_HTTPONLY``
         config var.

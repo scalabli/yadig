@@ -1,7 +1,7 @@
 HTML/XHTML FAQ
 ==============
 
-The Flask documentation and example applications are using HTML5.  You
+The Citus documentation and example applications are using HTML5.  You
 may notice that in many situations, when end tags are optional they are
 not used, so that the HTML is cleaner and faster to load.  Because there
 is much confusion about HTML and XHTML among developers, this document tries

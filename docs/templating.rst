@@ -1,13 +1,12 @@
 Templates
 =========
 
-Flask leverages Jinja2 as its template engine.  You are obviously free to use
-a different template engine, but you still have to install Jinja2 to run
-Flask itself.  This requirement is necessary to enable rich extensions.
+Citus leverages Jinja2 as its template engine.  You are obviously free to use
+a different template engine, but you still have to install Jinja2 to run Citus itself.  This requirement is necessary to enable rich extensions.
 An extension can depend on Jinja2 being present.
 
 This section only gives a very quick introduction into how Jinja2
-is integrated into Flask.  If you want information on the template
+is integrated into Citus.  If you want information on the template
 engine's syntax itself, head over to the official `Jinja2 Template
 Documentation <https://jinja.palletsprojects.com/templates/>`_ for
 more information.
@@ -15,16 +14,16 @@ more information.
 Jinja Setup
 -----------
 
-Unless customized, Jinja2 is configured by Flask as follows:
+Unless customized, Jinja2 is configured by Citus as follows:
 
 -   autoescaping is enabled for all templates ending in ``.html``,
     ``.htm``, ``.xml`` as well as ``.xhtml`` when using
-    :func:`~flask.templating.render_template`.
+    :func:`~citus.templating.template`.
 -   autoescaping is enabled for all strings when using
-    :func:`~flask.templating.render_template_string`.
+    :func:`~citus.templating.render_template_string`.
 -   a template has the ability to opt in/out autoescaping with the
     ``{% autoescape %}`` tag.
--   Flask inserts a couple of global functions and helpers into the
+-   Ciths inserts a couple of global functions and helpers into the
     Jinja2 context, additionally to the values that are present by
     default.
 
@@ -37,43 +36,40 @@ by default:
 .. data:: config
    :noindex:
 
-   The current configuration object (:data:`flask.Flask.config`)
+   The current configuration object (:data:`citus.API.config`)
 
-   .. versionadded:: 0.6
-
-   .. versionchanged:: 0.10
       This is now always available, even in imported templates.
 
 .. data:: request
    :noindex:
 
-   The current request object (:class:`flask.request`).  This variable is
+   The current request object (:class:`citus.request`).  This variable is
    unavailable if the template was rendered without an active request
    context.
 
 .. data:: session
    :noindex:
 
-   The current session object (:class:`flask.session`).  This variable
+   The current session object (:class:`citus.session`).  This variable
    is unavailable if the template was rendered without an active request
    context.
 
 .. data:: g
    :noindex:
 
-   The request-bound object for global variables (:data:`flask.g`).  This
+   The request-bound object for global variables (:data:`citus.g`).  This
    variable is unavailable if the template was rendered without an active
    request context.
 
 .. function:: url_for
    :noindex:
 
-   The :func:`flask.url_for` function.
+   The :func:`citus.url_for` function.
 
 .. function:: get_flashed_messages
    :noindex:
 
-   The :func:`flask.get_flashed_messages` function.
+   The :func:`citus..get_flashed_messages` function.
 
 .. admonition:: The Jinja Context Behavior
 
@@ -142,8 +138,8 @@ Registering Filters
 
 If you want to register your own filters in Jinja2 you have two ways to do
 that.  You can either put them by hand into the
-:attr:`~flask.Flask.jinja_env` of the application or use the
-:meth:`~flask.Flask.template_filter` decorator.
+:attr:`~citus.API.jinja_env` of the application or use the
+:meth:`~citus.API.template_filter` decorator.
 
 The two following examples work the same and both reverse an object::
 

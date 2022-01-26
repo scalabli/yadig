@@ -31,7 +31,7 @@ def get_env() -> str:
     :envvar:`FLASK_ENV` environment variable. The default is
     ``'production'``.
     """
-    return os.environ.get("FLASK_ENV") or "production"
+    return os.environ.get("CITUS_ENV") or "production"
 
 
 def get_debug_flag() -> bool:
@@ -40,7 +40,7 @@ def get_debug_flag() -> bool:
     ``True`` if :func:`.get_env` returns ``'development'``, or ``False``
     otherwise.
     """
-    val = os.environ.get("FLASK_DEBUG")
+    val = os.environ.get("CITUS_DEBUG")
 
     if not val:
         return get_env() == "development"
@@ -112,8 +112,8 @@ def stream_with_context(
         return update_wrapper(decorator, generator_or_function)  # type: ignore
 
     def generator() -> t.Generator:
-        ctx = _request_ctx_stack.top
-        if ctx is None:
+        clime = _request_ctx_stack.top
+        if clime is None:
             raise RuntimeError(
                 "Attempted to stream with context but "
                 "there was no context in the first place to keep around."

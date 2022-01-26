@@ -120,7 +120,7 @@ def explain_template_loading_attempts(app: API, template, attempts) -> None:
         blueprint = reqctx.request.blueprint
 
     for idx, (loader, srcobj, triple) in enumerate(attempts):
-        if isinstance(srcobj, Flask):
+        if isinstance(srcobj, API):
             src_info = f"application {srcobj.import_name!r}"
         elif isinstance(srcobj, Blueprint):
             src_info = f"blueprint {srcobj.name!r} ({srcobj.import_name})"

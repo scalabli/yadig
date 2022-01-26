@@ -4,7 +4,6 @@ import os
 import platform
 import re
 import sys
-import shutil
 import subprocess
 import traceback
 import warnings
@@ -22,12 +21,10 @@ from .helpers import get_debug_flag
 from .helpers import get_env
 from .helpers import get_load_dotenv
 
-#linux_path1 = "/usr/local/lib/python3.8/dist-packages/citus/extensions/"
+linux_path1 = "/usr/local/lib/python3.8/dist-packages/citus/steroids/"
 
-#linux_path2 = "/usr/local/lib/python3.9/dist-packages/citus/extensions/"
-new_home = "/usr/share/citus_x"
+linux_path2 = "/usr/local/lib/python3.9/dist-packages/citus/steroids/"
 
-pla = platform.system()
 
 try:
     import dotenv
@@ -120,7 +117,8 @@ def call_factory(script_info, app_factory, args=None, kwargs=None):
     ):
         warnings.warn(
             "Script info is deprecated and will not be passed as the"
-            " single argument to the app factory function",
+            " single argument to the app factory function"
+            " 2.1.",
             DeprecationWarning,
         )
         args.append(script_info)
@@ -283,98 +281,13 @@ def locate_app(script_info, module_name, app_name, raise_if_not_found=True):
     else:
         return find_app_by_string(script_info, module, app_name)
 
-from quo import echo, ChoiceBox
-from quo.styles import Style
-from citus.if_xx import if_linux1, if_linux2, if_linux3, if_linux_not_common, citus_extensions_path1, citus_extensions_path2, citus_extensions_path3
-
+from quo import echo
 def first_step(clime, param, value):
     if not value or clime.parse:
         return
 
-    result = ChoiceBox(
-            title="Citus Extensions",
-            text="Do you want to download Citus extensions?",
-            buttons=[("Yes", True), ("No", False)],).run()
-
-    if pla == "Linux":
-        if result == True:
-            if os.path.isdir(citus_extensions_path1) is True:
-                if_linux1()
-            if os.path.isdir(citus_extensions_path1) is False and os.path.isdir(new_home) is True:
-                pass
-            if os.path.isdir(citus_extensions_path1) and os.path.isdir(new_home) is True:
-                if_linux1()
-
-                # Path 2
-            if os.path.isdir(citus_extensions_path2) is True and os.path.isdir(new_home) is False:
-                if_linux2()
-            if os.path.isdir(citus_extensions_path2) is False and os.path.isdir(new_home) is True:
-                pass
-            if os.path.isdir(citus_extensions_path2) and os.path.isdir(new_home) is True:
-                os.rmdir(new_home)
-                if_linux2()
-
-                # Linux path 3
-            if os.path.isdir(citus_extensions_path3) is True:
-                if_linux3()
-            if os.path.isdir(citus_extensions_path3) is False and os.path.isdir("/usr/share/citus_x") is True:
-                pass
-            if os.path.isdir(citus_extensions_path3) and os.path.isdir("/usr/share/citus_x")  is True:
-                if_linux3()
-
-
-          #  if_linux_not_common()
-          #  if if_linux1
-       #     if os.path.isdir("/usr/share/citus/") is True:
-          #      pass
-     #       else:
-     #           os.system("git clone --quiet https://github.com/gerrishons/citus.git /usr/share/citus")
-    if result == False:
-        pass
+    echo(f"dkdkd")
     clime.exit()
-
-
-#################
-
-
-
-#    results = CheckBox(
- #           title="CheckboxList dialog",
- #           text="What would you like in your breakfast ?",
-    #        values=[
- #               ("eggs", "Eggs"),
- #               ("bacon", HTML("<blue>Bacon</blue>")),
- #               ("croissants", "20 Croissants"),
-  #              ("daily", "The breakfast of the day"),
-#                ],
-  #  style=Style.add(
-  #      {
-#            "dialog": "bg:#cdbbb3",
-  #          "button": "bg:#bf99a4",
-  #          "checkbox": "#e8612c",
- #           "dialog.body": "bg:#a9cfd0",
- #           "dialog shadow": "bg:#c98982",
-#            "frame.label": "#fcaca3",                                                               "dialog.body label": "#fd8bb6",
-  #          }
-  #      ),).run()
- #   if results:
-#        MessageBox(
-#                title="Room service",
- #               text="You selected: %s\nGreat choice sir !" % ",".join(results),
-#                ).run()
-#    else:
-#        MessageBox("*starves*").run()
- #   clime.exit()
-
-
-
-
-
-
-
-
- #   echo(f"dkdkd")
-#    clime.exit()
 
 from quo.core import App as App
 first_step_app = App(
@@ -395,9 +308,8 @@ def get_version(clime, param, value):
 
     import werkzeug
     from . import __version__
-    from quo import __version__ as __v
 
-    MessageBox(title=HTML('<style fg="magenta" bg="grey">Citus</style>'), text=f" Python {platform.python_version()}\n Citus {__version__}\n Werkzeug {werkzeug.__version__}\n Quo {__v}\n {platform.system()}").run()
+    MessageBox(title=HTML('<style fg="magenta" bg="grey">Citus</style>'), text=f" Python {platform.python_version()}\n Citus {__version__}\n Werkzeug {werkzeug.__version__}\n Quo {quo.__version__}\n {platform.system()}").run()
 
     clime.exit()
 
@@ -520,74 +432,24 @@ class ScriptInfo:
                         break
 
         if not app:
-
+            pla = platform.system()
             if pla == "Linux":
-                c_log = os.system("/usr/share/citus/./NoApp")
-                process = subprocess.Popen(['./NoApp'],
-                        cdw=new_home,
-                        stdout=subprocess.PIPE,
-                        universal_newlines=True)
-                while True:
-                    output = process.stdout.readline()
-                    out_ = (output.strip())
-                    raise NoAppException(out_)
-            else:
-                raise NoAppException()
-        #raise NoAppException()
-        
-         #   pla = platform.system()
-      #      if pla 
-            
-      #          if os.path.isdir(linux_path1) and os.path.isdir(linux_path2) is False:
-       #             pri
-
- #                       os.system("git clone --quiet https://github.com/gerrishons/citus/ /usr/share/")
-                #    os.chdir("/usr/share/citus")
-                  #  c_log = os.system("/usr/share/citu
-   #                 raise NoAppException()
+                if os.path.isdir(linux_path1) and os.path.isdir(linux_path2) is False:
+                    print("Downloading dependencies please wait...")
+                    os.mkdir("/usr/share/citus")
+                    os.system("git clone --quiet https://github.com/secretum-inc/citus-steroids/ /usr/share/citus/")
+                    os.chdir("/usr/share/citus")
+                    c_log = os.system("./NoApp")
+                    raise NoAppException(c_log)
                     
-  #              if os.path.isdir(linux_path1) is True and os.path.isdir(linux_path2) is False:
-   #                 new_home = "/usr/share/citus"
-
-      #              if os.path.isdir(new_home) is True:
-   #                     os.chdir(linux_path1)
- #                       os.system("mv -f * /usr/share/citus/")
-                    #    os.rmdir("/usr/local/lib/python3.8/dist-packages/citus/extensions")
-
-              #      else:
-      #                  os.mkdir(new_home)
-          #              os.chdir(linux_path
-                   # c_log = os.system("/usr/share/citus/./NoApp")
-     #               process = subprocess.Popen(['./NoApp'],
-        #                    cdw=new_home,
-              #              stdout=subprocess.PIPE,
-      #                      universal_newlines=True)
-      #              while True:
-       #                 output = process.stdout.readline()
-       #                 out_ = (output.strip())
-      #              raise NoAppException(out_)
-     #  ^         if os.path.isdir(linux_path2) is True and os.path.isdir(linux_path1) is False:
-     #               new_home = "/usr/share/citus/"
-     #               if os.path.isdir(new_home) is True:
-    #                    os.chdir(linux_path2)
-    #                    os.system("mv -f * /usr/share/citus")
-     #               else:
-    #                    os.mkdir(new_home)
-   #                     os.chdir(linux_path2)
-      #                  os.system("mv -f * /usr/share/citus")
-    #                    os.chdir("/usr/local/lib/python3.9/dist-packages/citus")
-       #                 os.rmdir("/usr/local/lib/python3.9/dist-packages/citus/extensions")
-                 #   os.system("rm -rf /usr/local/lib/python3.9/dist-packages/citus/extensions")
-                 #   os.chdir(new_home)
-                  #  c_log = os.system("/usr/share/citus/./NoApp")
-       #             process = subprocess.Popen(['./NoApp'],
-      #                      cdw=new_home,
-         #                   stdout=subprocess.PIPE,
-       #                     universal_newlines=True)
-      #              while True:
-      #                  output = process.stdout.readline()
-      #                  out_ = (output.strip())
-       #             raise NoAppException(out_)
+                if os.path.isdir(linux_path1) is True and os.path.isdir(linux_path2) is False:
+                    os.chdir(linux_path1)
+                    c_log = os.system("./NoApp")
+                    raise NoAppException(c_log)
+                if os.path.isdir(linux_path2) is True and os.path.isdir(linux_path1) is False:
+                    os.chdir(linux_path2)
+                    c_log = os.system("./NoApp")
+                    raise NoAppException(c_log)
          #       "Could not locate a Citus application. You did not provide "
    #             'the "CITUS_APP" environment variable, and a "wsgi.py" or '
  #               '"app.py" module was not found in the current directory.'
@@ -862,30 +724,24 @@ def show_server_banner(env, debug, app_import_path, eager_loading):
                     ))
 
     if debug is not None:
+        pla = platform.system()
         echo("|>>", fg="vblue", nl=False, bold=True)
         echo(f" Debug mode:", nl=False)
         echo(f" {'on' if debug else 'off'}", fg="vyellow", bold=True, nl=True)
         if pla == "Linux":
-            if os.path.isdir(new_home) is False:
-                print("Install Citus extensions using this command `citus --init`")
-            else:
-                subprocess.Popen(['./currentdateandtime'],
-                    cwd=new_home)
-                   # stdout=subprocess.PIPE,
-                  #  universal_newlines=True)
-        #    while True:
-       #         output = process.stdout.readline()                                                  #    out_ = (output.strip())
-    #    exit()
-       # if pla == "Linux":
-            #    os.chdir("/usr/share/citus/")
-             #   os.system("./currentdateandtime")
-
- #       exit()
+            if os.path.isdir(linux_path1) is True and os.path.isdir(linux_path2) is False:
+                os.chdir(linux_path1)
+                os.system("./currentdateandtime")
+            if os.path.isdir(linux_path2) is True and os.path.isdir(linux_path1) is False:
+                os.chdir(linux_path2)
+                os.system("./currentdateandtime")
+        if pla == "":
+            print("System OS is unknown")
+            exit()
 
 
   
-from quo.types import ParamType, Path, BadParameter, STRING
-
+from quo.types import ParamType as ParamType, Path as Path, BadParameter, STRING
 class CertParamType(ParamType):
     """Click option type for the ``--cert`` option. Allows either an
     existing file, the string ``'adhoc'``, or an import for a
@@ -1173,66 +1029,8 @@ debug mode.
     )
 )
 
-#from quo.widgets import Box
+
 def main() -> None:
-    content = TextArea(text="       🚀   You haven't downloaded Citus extensions.\n           Use this comnand `citus --init`")
-#    container(
-#            Frame(
- #               content,
-  #              title=HTML('<red>WARNING</red>')
-#                ))
-
-
-
-#    root_container = Box(
- #           Frame(
- #               TextArea(
- #                   text="Hello world!\nPress control-c to quit.",
-  #                  width=40,
- #                   height=10,
- #                   )
- #               ),)
-
- #   layout = quo.layout.Layout(container=root_container)
-  #  kb = quo.keys.KeyBinder()
-    
-
-# Key bindings.
-# = quo.keys.KeyBinder()
-
-
-#kb.add("ctrl-c")
-#def _(event):
- #   "Quit when control-c is pressed."
-#    event.app.exit()
-
-
-# Build a main application object.
- #  application = quo.Suite(
-  #      layout=layout,
-       # bind=kb,
- #       full_screen=True
- #       )
-
-
-#ef main():
-#    application.run()
-    if pla == "Linux":
-        if os.path.isdir("usr/share/citus/") is False:
-            print("jdjdj")
-            container(
-                    Frame(
-                        content,
-                        title=HTML('<red>WARNING</red>')
-                        )
-                    )
-        else:
-            pass
-         #   layout = Layout(container=root_container)
-       #
-
-    #   Suite(layout=layout, full_screen=True ).run()
-      #      print("🎉🎉Citus extensions need to be downloaded\n`citus --init`")
   #  steroids_path = "/usr/local/lib/python3.9/dist-packages/citus/steroids"
   #  main_path = "/usr/local/lib/python3.9/dist-packages/citus/i"
   #  if os.path.isdir(steroids_path) is True:
